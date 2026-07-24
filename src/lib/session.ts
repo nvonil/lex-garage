@@ -19,3 +19,23 @@ export async function createSession(userID: string) {
         path: "/",
     });
 }
+
+export async function getCurrentUser() {
+    const cookieStore = await cookies();
+    const sessionID = cookieStore.get(SESSION_COOKIE_NAME)?.value;
+
+    if (!sessionID) {
+        return null;
+    }
+
+    const session = await prisma.session.findUnique({
+        where: { id: sessionID },
+        include: { user: true },
+    });
+
+    if (!session || session.expiresAt < new Date()) {
+        return null;
+    }
+
+    return session.user;
+}
