@@ -39,3 +39,14 @@ export async function getCurrentUser() {
 
     return session.user;
 }
+
+export async function deleteSession() {
+    const cookieStore = await cookies();
+    const sessionID = cookieStore.get(SESSION_COOKIE_NAME)?.value;
+
+    if (sessionID) {
+        await prisma.session.delete({ where: { id: sessionID } }).catch(() => {});
+    }
+
+    cookieStore.delete(SESSION_COOKIE_NAME);
+}
