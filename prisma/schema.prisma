@@ -13,39 +13,47 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  email String @unique
-  username String @unique
+  id       String    @id @default(uuid())
+  email    String    @unique
+  username String    @unique
   password String
-  cars Car[]
+  cars     Car[]
+  sessions Session[]
 }
 
 model Car {
-  id String @id @default(uuid())
-  model String
-  year String
-  color String
+  id         String   @id @default(uuid())
+  model      String
+  year       String
+  color      String
   datePosted DateTime @default(now())
-  userID String
-  user User @relation(fields: [userID], references: [id])
-  mods Mod[]
-  photos Photo[]
+  userID     String
+  user       User     @relation(fields: [userID], references: [id])
+  mods       Mod[]
+  photos     Photo[]
 }
 
 model Mod {
-  id String @id @default(uuid())
+  id       String  @id @default(uuid())
   category String
-  brand String
-  name String
-  cost Decimal
-  url String?
-  carID String
-  car Car @relation(fields: [carID], references: [id])
+  brand    String
+  name     String
+  cost     Decimal
+  url      String?
+  carID    String
+  car      Car     @relation(fields: [carID], references: [id])
 }
 
 model Photo {
-  id String @id @default(uuid())
+  id       String @id @default(uuid())
   imageURL String
-  carID String
-  car Car @relation(fields: [carID], references: [id])
+  carID    String
+  car      Car    @relation(fields: [carID], references: [id])
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userID    String
+  user      User     @relation(fields: [userID], references: [id])
+  expiresAt DateTime
 }
