@@ -40,6 +40,16 @@ export async function getCurrentUser() {
     return session.user;
 }
 
+export async function requireUser() {
+    const user = await getCurrentUser();
+
+    if (!user) {
+        throw new Error("UNAUTHORIZED");
+    }
+
+    return user;
+}
+
 export async function deleteSession() {
     const cookieStore = await cookies();
     const sessionID = cookieStore.get(SESSION_COOKIE_NAME)?.value;
