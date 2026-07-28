@@ -1,0 +1,11 @@
+-- DropForeignKey
+ALTER TABLE "Mod" DROP CONSTRAINT "Mod_carID_fkey";
+
+-- DropForeignKey
+ALTER TABLE "Photo" DROP CONSTRAINT "Photo_carID_fkey";
+
+-- AddForeignKey
+ALTER TABLE "Mod" ADD CONSTRAINT "Mod_carID_fkey" FOREIGN KEY ("carID") REFERENCES "Car"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Photo" ADD CONSTRAINT "Photo_carID_fkey" FOREIGN KEY ("carID") REFERENCES "Car"("id") ON DELETE CASCADE ON UPDATE CASCADE;
