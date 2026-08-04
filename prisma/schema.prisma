@@ -41,14 +41,14 @@ model Mod {
   cost     Decimal
   url      String?
   carID    String
-  car      Car     @relation(fields: [carID], references: [id])
+  car      Car     @relation(fields: [carID], references: [id], onDelete: Cascade)
 }
 
 model Photo {
   id       String @id @default(uuid())
   imageURL String
   carID    String
-  car      Car    @relation(fields: [carID], references: [id])
+  car      Car    @relation(fields: [carID], references: [id], onDelete: Cascade)
 }
 
 model Session {
