@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
 
-    const car = await prisma.car.findUnique({ where: { id }, include: { mods: true } });
+    const car = await prisma.car.findUnique({ where: { id }, include: { mods: true, photos: true } });
 
     if (!car) {
         return NextResponse.json({ error: "car not found" }, { status: 404 });
