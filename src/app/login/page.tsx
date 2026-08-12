@@ -33,7 +33,7 @@ export default function LoginPage() {
 
     return (
         <div className="max-w-sm mx-auto mt-16 px-4">
-            <h1 className="text-2x1 font-bold mb-6">Log In</h1>
+            <h1 className="text-2xl font-bold mb-6">Log In</h1>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <input
@@ -61,10 +61,12 @@ export default function LoginPage() {
                 </button>
             </form>
 
-            <p className="mt-4 text-sm">Don&apos;t have an account?</p>
-            <Link href="/signup" className="underline">
-                Sign up
-            </Link>
+            <p className="mt-4 text-sm">
+                Don&apos;t have an account?{" "}
+                <Link href="/signup" className="underline">
+                    Sign up
+                </Link>
+            </p>
         </div>
     );
 }

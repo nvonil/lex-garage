@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LogoutButton from "./LogoutButton";
 import type { User } from "@/generated/prisma/client";
 
 export default function Nav({ user }: { user: User | null }) {
@@ -13,6 +14,7 @@ export default function Nav({ user }: { user: User | null }) {
                     <>
                         <span>{user.username}</span>
                         <Link href="/cars/new">Post a Build</Link>
+                        <LogoutButton />
                     </>
                 ) : (
                     <>
