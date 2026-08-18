@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
 import AddModForm from "@/components/AddModForm";
 import AddPhotoForm from "@/components/AddPhotoForm";
+import DeleteCarButton from "@/components/DeleteCarButton";
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -68,6 +69,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 
             {isOwner && (
                 <>
+                    <DeleteCarButton carID={car.id} />
                     <AddModForm carID={car.id} /> <AddPhotoForm carID={car.id} />
                 </>
             )}
