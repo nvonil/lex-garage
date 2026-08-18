@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getCurrentUser } from "@/lib/session";
+import AddModForm from "@/components/AddModForm";
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -12,6 +14,9 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
     if (!car) {
         notFound();
     }
+
+    const user = await getCurrentUser();
+    const isOwner = user?.id === car.userID;
 
     return (
         <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-10">
@@ -59,6 +64,8 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                     ))}
                 </ul>
             )}
+
+            {isOwner && <AddModForm carID={car.id} />}
         </main>
     );
 }
