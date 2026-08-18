@@ -11,7 +11,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     try {
         user = await requireUser();
     } catch {
-        return NextResponse.json({ error: "must be logged in", status: "401" });
+        return NextResponse.json({ error: "must be logged in", status: 401 });
     }
 
     const { id } = await params;

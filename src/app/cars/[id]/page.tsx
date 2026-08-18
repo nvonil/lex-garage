@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
 import AddModForm from "@/components/AddModForm";
+import AddPhotoForm from "@/components/AddPhotoForm";
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -65,7 +66,11 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                 </ul>
             )}
 
-            {isOwner && <AddModForm carID={car.id} />}
+            {isOwner && (
+                <>
+                    <AddModForm carID={car.id} /> <AddPhotoForm carID={car.id} />
+                </>
+            )}
         </main>
     );
 }
