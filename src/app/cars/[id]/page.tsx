@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/session";
 import AddModForm from "@/components/AddModForm";
 import AddPhotoForm from "@/components/AddPhotoForm";
 import DeleteCarButton from "@/components/DeleteCarButton";
+import Link from "next/link";
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -69,6 +70,9 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 
             {isOwner && (
                 <>
+                    <Link href={`/cars/${car.id}/edit`} className="underline">
+                        Edit Build
+                    </Link>
                     <DeleteCarButton carID={car.id} />
                     <AddModForm carID={car.id} /> <AddPhotoForm carID={car.id} />
                 </>
