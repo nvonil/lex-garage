@@ -6,6 +6,7 @@ import AddPhotoForm from "@/components/AddPhotoForm";
 import DeleteCarButton from "@/components/DeleteCarButton";
 import Link from "next/link";
 import ModItem from "@/components/ModItem";
+import PhotoItem from "@/components/PhotoItem";
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -32,13 +33,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
             {car.photos.length > 0 && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
                     {car.photos.map((photo) => (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                            key={photo.id}
-                            src={photo.imageURL}
-                            alt={`${car.model} photo`}
-                            className="rounded-lg object-cover aspect-square"
-                        />
+                        <PhotoItem key={photo.id} photo={photo} isOwner={isOwner} />
                     ))}
                 </div>
             )}
