@@ -5,6 +5,7 @@ import AddModForm from "@/components/AddModForm";
 import AddPhotoForm from "@/components/AddPhotoForm";
 import DeleteCarButton from "@/components/DeleteCarButton";
 import Link from "next/link";
+import ModItem from "@/components/ModItem";
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -48,22 +49,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
             ) : (
                 <ul className="flex flex-col gap-3">
                     {car.mods.map((mod) => (
-                        <li key={mod.id} className="border rounded-lg p-3">
-                            <p className="font-medium">
-                                {mod.category} — {mod.brand} {mod.name}
-                            </p>
-                            <p className="text-sm text-zinc-600">
-                                ${mod.cost.toString()}
-                                {mod.url && (
-                                    <>
-                                        {" · "}
-                                        <a href={mod.url} className="underline" target="_blank">
-                                            link
-                                        </a>
-                                    </>
-                                )}
-                            </p>
-                        </li>
+                        <ModItem key={mod.id} mod={{ ...mod, cost: mod.cost.toString() }} isOwner={isOwner} />
                     ))}
                 </ul>
             )}
