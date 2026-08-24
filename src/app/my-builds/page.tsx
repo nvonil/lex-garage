@@ -1,17 +1,32 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getCurrentUser } from "@/lib/session";
 
-export default async function Home() {
+export default async function MyBuildsPage() {
+    const user = await getCurrentUser();
+
+    if (!user) {
+        redirect("/login");
+    }
+
     const cars = await prisma.car.findMany({
+        where: { userID: user.id },
         orderBy: { datePosted: "desc" },
     });
 
     return (
         <main className="flex-1 max-w-5xl w-full mx-auto px-6 py-10">
-            <h1 className="text-2xl font-bold mb-6">Browse Builds</h1>
+            <h1 className="text-2xl font-bold mb-6">My Builds</h1>
 
             {cars.length === 0 ? (
-                <p className="text-zinc-500">No builds posted yet.</p>
+                <p className="text-zinc-500">
+                    You haven&apos;t posted any builds yet.{" "}
+                    <Link href="/cars/new" className="underline">
+                        Post one now
+                    </Link>
+                    .
+                </p>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {cars.map((car) => (

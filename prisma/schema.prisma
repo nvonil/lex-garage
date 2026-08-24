@@ -28,7 +28,7 @@ model Car {
   color      String
   datePosted DateTime @default(now())
   userID     String
-  user       User     @relation(fields: [userID], references: [id])
+  user       User     @relation(fields: [userID], references: [id], onDelete: Cascade)
   mods       Mod[]
   photos     Photo[]
 }
@@ -54,6 +54,6 @@ model Photo {
 model Session {
   id        String   @id @default(uuid())
   userID    String
-  user      User     @relation(fields: [userID], references: [id])
+  user      User     @relation(fields: [userID], references: [id], onDelete: Cascade)
   expiresAt DateTime
 }
