@@ -13,6 +13,7 @@ export default function Nav({ user }: { user: User | null }) {
                 {user ? (
                     <>
                         <span>{user.username}</span>
+                        <Link href="/my-builds">My Builds</Link>
                         <Link href="/cars/new">Post a Build</Link>
                         <LogoutButton />
                     </>
