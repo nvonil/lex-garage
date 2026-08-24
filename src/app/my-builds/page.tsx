@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
+import GuestPrompt from "@/components/GuestPrompt";
 
 export default async function MyBuildsPage() {
     const user = await getCurrentUser();
 
     if (!user) {
-        redirect("/login");
+        return <GuestPrompt message="Log in to see your posted builds." />;
     }
 
     const cars = await prisma.car.findMany({

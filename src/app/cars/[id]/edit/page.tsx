@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
 import EditCarForm from "@/components/EditCarForm";
+import GuestPrompt from "@/components/GuestPrompt";
 
 export default async function EditCarPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -13,6 +14,10 @@ export default async function EditCarPage({ params }: { params: Promise<{ id: st
     }
 
     const user = await getCurrentUser();
+
+    if (!user) {
+        return <GuestPrompt message="Log in to edit this build." />;
+    }
 
     if (user?.id !== car.userID) {
         redirect(`/cars/${id}`);
