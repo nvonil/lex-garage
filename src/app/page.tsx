@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 export default async function Home() {
     const cars = await prisma.car.findMany({
         orderBy: { datePosted: "desc" },
+        include: { photos: true },
     });
 
     return (
@@ -20,6 +21,18 @@ export default async function Home() {
                             href={`/cars/${car.id}`}
                             className="border rounded-lg p-4 hover:shadow-md transition-shadow"
                         >
+                            {car.photos[0] ? (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
+                                    src={car.photos[0].imageURL}
+                                    alt={`${car.model} photo`}
+                                    className="rounded-md aspect-video object-cover w-full mb-3"
+                                />
+                            ) : (
+                                <div className="rounded-md aspect-video bg-zinc-100 w-full mb-3 flex items-center">
+                                    No photo
+                                </div>
+                            )}
                             <h2 className="font-semibold text-lg">
                                 {car.year} {car.model}
                             </h2>
