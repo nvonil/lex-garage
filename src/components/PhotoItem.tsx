@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import type { Photo } from "@/generated/prisma/client";
+import Image from "next/image";
 
 export default function PhotoItem({ photo, isOwner }: { photo: Photo; isOwner: boolean }) {
     const router = useRouter();
@@ -23,10 +24,14 @@ export default function PhotoItem({ photo, isOwner }: { photo: Photo; isOwner: b
     }
 
     return (
-        <div className="relative">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={photo.imageURL} alt="car photo" className="rounded-lg object-cover aspect-square w-full" />
-
+        <div className="relative aspect-square w-full">
+            <Image
+                src={photo.imageURL}
+                alt="car photo"
+                fill
+                sizes="(max-width: 640px) 50vw, 33vw"
+                className="rounded-lg object-cover"
+            />
             {isOwner && (
                 <button
                     onClick={handleDelete}

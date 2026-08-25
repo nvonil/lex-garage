@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import Image from "next/image";
 
 export default async function Home() {
     const cars = await prisma.car.findMany({
@@ -22,14 +23,17 @@ export default async function Home() {
                             className="border rounded-lg p-4 hover:shadow-md transition-shadow"
                         >
                             {car.photos[0] ? (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img
-                                    src={car.photos[0].imageURL}
-                                    alt={`${car.model} photo`}
-                                    className="rounded-md aspect-video object-cover w-full mb-3"
-                                />
+                                <div className="relative aspect-video w-full mb-3">
+                                    <Image
+                                        src={car.photos[0].imageURL}
+                                        alt={`${car.model} photo`}
+                                        fill
+                                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                                        className="rounded-md object-cover"
+                                    />
+                                </div>
                             ) : (
-                                <div className="rounded-md aspect-video bg-zinc-100 w-full mb-3 flex items-center">
+                                <div className="rounded-md aspect-video bg-zinc-100 w-full mb-3 flex items-center justify-center text-zinc-400 text-sm">
                                     No photo
                                 </div>
                             )}
