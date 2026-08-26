@@ -1,8 +1,11 @@
 import Link from "next/link";
+
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
 import GuestPrompt from "@/components/GuestPrompt";
-import Image from "next/image";
+import CarThumbnail from "@/components/CarThumbnail";
+
+import { Plus } from "lucide-react";
 
 export default async function MyBuildsPage() {
     const user = await getCurrentUser();
@@ -18,44 +21,45 @@ export default async function MyBuildsPage() {
     });
 
     return (
-        <main className="flex-1 max-w-5xl w-full mx-auto px-6 py-10">
-            <h1 className="text-2xl font-bold mb-6">My Builds</h1>
+        <main className="flex flex-col gap-12 max-w-7xl w-full mx-auto px-6 py-12">
+            <div className="flex justify-between items-center">
+                <div>
+                    <h1 className="text-xl font-bold">My Builds</h1>
+                    <p className="text-text-secondary">A list of your posted vehicles</p>
+                </div>
+
+                <Link
+                    href="/cars/new"
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent uppercase text-background-primary text-sm font-semibold cursor-pointer hover:scale-102 transition-transform duration-300"
+                >
+                    <Plus className="w-4 h-4" />
+                    Post a Build
+                </Link>
+            </div>
 
             {cars.length === 0 ? (
-                <p className="text-zinc-500">
-                    You haven&apos;t posted any builds yet.{" "}
-                    <Link href="/cars/new" className="underline">
-                        Post one now
-                    </Link>
-                    .
-                </p>
+                <p className="text-text-secondary text-center">You have not posted any builds yet</p>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {cars.map((car) => (
                         <Link
                             key={car.id}
                             href={`/cars/${car.id}`}
-                            className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                            className="flex flex-col gap-4 border rounded-lg p-4 hover:scale-102 transition-transform duration-300"
                         >
-                            {car.photos[0] ? (
-                                <div className="relative aspect-video w-full mb-3">
-                                    <Image
-                                        src={car.photos[0].imageURL}
-                                        alt={`${car.model} photo`}
-                                        fill
-                                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                                        className="rounded-md object-cover"
-                                    />
+                            <CarThumbnail imageURL={car.photos[0]?.imageURL} alt={`${car.model} Photo`} />
+
+                            <div className="flex items-center gap-4 ">
+                                <span className="text-lg font-semibold">{car.model}</span>
+                                <div className="flex gap-2 ">
+                                    <span className="px-2 py-1 border border-accent rounded-xl text-text-secondary text-sm">
+                                        {car.year}
+                                    </span>
+                                    <span className="px-2 py-1 border border-accent rounded-xl text-text-secondary text-sm">
+                                        {car.color}
+                                    </span>
                                 </div>
-                            ) : (
-                                <div className="rounded-md aspect-video bg-zinc-100 w-full mb-3 flex items-center justify-center text-zinc-400 text-sm">
-                                    No photo
-                                </div>
-                            )}
-                            <h2 className="font-semibold text-lg">
-                                {car.year} {car.model}
-                            </h2>
-                            <p className="text-zinc-600">{car.color}</p>
+                            </div>
                         </Link>
                     ))}
                 </div>

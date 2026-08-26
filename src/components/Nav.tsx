@@ -13,9 +13,11 @@ export default function Nav({ user }: { user: User | null }) {
 
     return (
         <nav className="flex justify-between items-center px-12 py-6 border-b-2 border-background-secondary">
-            <Link href="/" className="font-bold text-2xl">
-                LexGarage
-            </Link>
+            <div className="border-b-2 border-accent">
+                <Link href="/" className="text-2xl font-bold">
+                    LexGarage
+                </Link>
+            </div>
 
             <div className="flex items-center gap-8 uppercase text-sm font-semibold">
                 <Link href="/my-builds">My Builds</Link>
@@ -33,7 +35,10 @@ export default function Nav({ user }: { user: User | null }) {
                         )}
                     </div>
                 ) : (
-                    <Link href="/login" className="flex items-center gap-2">
+                    <Link
+                        href="/login"
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent text-background-primary hover:scale-102 transition-transform duration-300"
+                    >
                         <UserIcon className="w-4 h-4" />
                         Sign In
                     </Link>
