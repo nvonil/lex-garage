@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
 import Image from "next/image";
+
+import { prisma } from "@/lib/prisma";
+import CarThumbnail from "@/components/CarThumbnail";
 
 export default async function Home() {
     const cars = await prisma.car.findMany({
@@ -9,42 +11,51 @@ export default async function Home() {
     });
 
     return (
-        <main className="flex-1 max-w-5xl w-full mx-auto px-6 py-10">
-            <h1 className="text-2xl font-bold mb-6">Browse Builds</h1>
+        <>
+            <section className="relative h-[625px]">
+                <Image
+                    src="/images/lexgarage-hero.jpg"
+                    alt="Lexus LC parked at a roadside stand"
+                    fill
+                    priority
+                    className="object-cover object-bottom -scale-x-100"
+                />
+            </section>
 
-            {cars.length === 0 ? (
-                <p className="text-zinc-500">No builds posted yet.</p>
-            ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    {cars.map((car) => (
-                        <Link
-                            key={car.id}
-                            href={`/cars/${car.id}`}
-                            className="border rounded-lg p-4 hover:shadow-md transition-shadow"
-                        >
-                            {car.photos[0] ? (
-                                <div className="relative aspect-video w-full mb-3">
-                                    <Image
-                                        src={car.photos[0].imageURL}
-                                        alt={`${car.model} photo`}
-                                        fill
-                                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                                        className="rounded-md object-cover"
-                                    />
-                                </div>
-                            ) : (
-                                <div className="rounded-md aspect-video bg-zinc-100 w-full mb-3 flex items-center justify-center text-zinc-400 text-sm">
-                                    No photo
-                                </div>
-                            )}
-                            <h2 className="font-semibold text-lg">
-                                {car.year} {car.model}
-                            </h2>
-                            <p className="text-zinc-600">{car.color}</p>
-                        </Link>
-                    ))}
+            <main className="flex flex-col gap-12 max-w-7xl w-full mx-auto px-6 py-12">
+                <div>
+                    <h1 className="text-xl font-bold">Browse Builds</h1>
+                    <p className="text-text-secondary">Collection of posted builds</p>
                 </div>
-            )}
-        </main>
+
+                {cars.length === 0 ? (
+                    <p className="text-text-secondary text-center">No builds posted yet</p>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {cars.map((car) => (
+                            <Link
+                                key={car.id}
+                                href={`/cars/${car.id}`}
+                                className="flex flex-col gap-4 border rounded-lg p-4 hover:scale-102 transition-transform duration-300"
+                            >
+                                <CarThumbnail imageURL={car.photos[0]?.imageURL} alt={`${car.model} Photo`} />
+
+                                <div className="flex items-center gap-4 ">
+                                    <span className="text-lg font-semibold">{car.model}</span>
+                                    <div className="flex gap-2 ">
+                                        <span className="px-2 py-1 border border-accent rounded-xl text-text-secondary text-sm">
+                                            {car.year}
+                                        </span>
+                                        <span className="px-2 py-1 border border-accent rounded-xl text-text-secondary text-sm">
+                                            {car.color}
+                                        </span>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                )}
+            </main>
+        </>
     );
 }
