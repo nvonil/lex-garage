@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 
 import { prisma } from "@/lib/prisma";
+import HeroCarousel from "@/components/HeroCarousel";
 import CarThumbnail from "@/components/CarThumbnail";
 
 export default async function Home() {
@@ -12,21 +12,32 @@ export default async function Home() {
 
     return (
         <>
-            <section className="relative h-[625px]">
-                <Image
-                    src="/images/lexgarage-hero.jpg"
-                    alt="Lexus LC parked at a roadside stand"
-                    fill
-                    priority
-                    className="object-cover object-bottom -scale-x-100"
-                />
+            <HeroCarousel />
+
+            <section className="flex justify-between items-center h-20 px-20 bg-black">
+                <span className="text-background-primary text-xl">
+                    Document your build. Showcase your mods. Connect with others.
+                </span>
+
+                <div className="flex gap-4">
+                    <Link
+                        href="/my-builds"
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-background-primary text-text-primary hover:scale-102 transition-transform duration-300"
+                    >
+                        Start Your Build
+                    </Link>
+
+                    <Link
+                        href="/my-builds"
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-background-primary text-text-primary hover:scale-102 transition-transform duration-300"
+                    >
+                        Learn More
+                    </Link>
+                </div>
             </section>
 
             <main className="flex flex-col gap-12 max-w-7xl w-full mx-auto px-6 py-12">
-                <div>
-                    <h1 className="text-xl font-bold">Browse Builds</h1>
-                    <p className="text-text-secondary">Collection of posted builds</p>
-                </div>
+                <h1 className="text-xl font-bold">Browse Builds</h1>
 
                 {cars.length === 0 ? (
                     <p className="text-text-secondary text-center">No builds posted yet</p>

@@ -13,7 +13,7 @@ export default function Nav({ user }: { user: User | null }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="flex justify-between items-center px-12 py-6 border-b-2 border-background-secondary">
+        <nav className="flex justify-between items-center h-20 px-12 border-b-2 border-background-secondary">
             <Link href="/" className="flex items-center gap-2 text-xl">
                 <Image src="/images/lexgarage-logo.png" alt="LexGarage Logo" width={32} height={32} />
                 <span>
@@ -30,7 +30,9 @@ export default function Nav({ user }: { user: User | null }) {
                 {user ? (
                     <div className="relative">
                         <button className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-                            <span className="normal-case">@{user.username}</span>
+                            <span className="normal-case px-4 py-2 rounded-lg bg-text-primary text-background-primary hover:scale-102 transition-transform duration-300">
+                                @{user.username}
+                            </span>
                         </button>
 
                         {isOpen && (

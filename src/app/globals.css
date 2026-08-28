@@ -13,6 +13,16 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@keyframes progress-fill {
+  from {
+    transform: scaleX(0)
+  }
+
+  to {
+    transform: scaleX(1)
+  }
+}
+
 body {
   background: var(--color-background-primary);
   color: var(--color-text-primary);
