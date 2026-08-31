@@ -2,13 +2,18 @@ import Link from "next/link";
 
 import { prisma } from "@/lib/prisma";
 import HeroCarousel from "@/components/HeroCarousel";
-import CarThumbnail from "@/components/CarThumbnail";
+import BrowseGrid from "@/components/BrowseGrid";
 
 export default async function Home() {
     const cars = await prisma.car.findMany({
         orderBy: { datePosted: "desc" },
-        include: { photos: true },
+        include: { photos: true, mods: true, user: true },
     });
+
+    const carsWithStringCost = cars.map((car) => ({
+        ...car,
+        mods: car.mods.map((mod) => ({ ...mod, cost: mod.cost.toString() })),
+    }));
 
     return (
         <>
@@ -16,7 +21,7 @@ export default async function Home() {
 
             <section className="flex justify-between items-center h-20 px-20 bg-black">
                 <span className="text-background-primary text-xl">
-                    Document your build. Showcase your mods. Connect with others.
+                    Post your build. Track every mod. Connect with owners.
                 </span>
 
                 <div className="flex gap-4">
@@ -42,29 +47,7 @@ export default async function Home() {
                 {cars.length === 0 ? (
                     <p className="text-text-secondary text-center">No builds posted yet</p>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                        {cars.map((car) => (
-                            <Link
-                                key={car.id}
-                                href={`/cars/${car.id}`}
-                                className="flex flex-col gap-4 border rounded-lg p-4 hover:scale-102 transition-transform duration-300"
-                            >
-                                <CarThumbnail imageURL={car.photos[0]?.imageURL} alt={`${car.model} Photo`} />
-
-                                <div className="flex items-center gap-4 ">
-                                    <span className="text-lg font-semibold">{car.model}</span>
-                                    <div className="flex gap-2 ">
-                                        <span className="px-2 py-1 border border-accent rounded-xl text-text-secondary text-sm">
-                                            {car.year}
-                                        </span>
-                                        <span className="px-2 py-1 border border-accent rounded-xl text-text-secondary text-sm">
-                                            {car.color}
-                                        </span>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+                    <BrowseGrid cars={carsWithStringCost} />
                 )}
             </main>
         </>

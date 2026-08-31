@@ -13,7 +13,7 @@ export default function Nav({ user }: { user: User | null }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="flex justify-between items-center h-20 px-12 border-b-2 border-background-secondary">
+        <nav className="flex justify-between items-center h-20 px-12">
             <Link href="/" className="flex items-center gap-2 text-xl">
                 <Image src="/images/lexgarage-logo.png" alt="LexGarage Logo" width={32} height={32} />
                 <span>
