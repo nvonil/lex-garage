@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 import { prisma } from "@/lib/prisma";
-import HeroCarousel from "@/components/HeroCarousel";
-import BrowseGrid from "@/components/BrowseGrid";
+import HeroCarousel from "@/components/home/HeroCarousel";
+import CarBrowseGrid from "@/components/cars/CarBrowseGrid";
 
 export default async function Home() {
     const cars = await prisma.car.findMany({
@@ -19,7 +19,7 @@ export default async function Home() {
         <>
             <HeroCarousel />
 
-            <section className="flex justify-between items-center h-20 px-20 bg-black">
+            <section className="flex justify-between items-center h-20 px-20 bg-text-primary">
                 <span className="text-background-primary text-xl">
                     Post your build. Track every mod. Connect with owners.
                 </span>
@@ -47,7 +47,7 @@ export default async function Home() {
                 {cars.length === 0 ? (
                     <p className="text-text-secondary text-center">No builds posted yet</p>
                 ) : (
-                    <BrowseGrid cars={carsWithStringCost} />
+                    <CarBrowseGrid cars={carsWithStringCost} />
                 )}
             </main>
         </>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import type { User } from "@/generated/prisma/client";
-import LogoutButton from "@/components/LogoutButton";
+import LogoutButton from "@/components/layout/LogoutButton";
 
 import { User as UserIcon } from "lucide-react";
 

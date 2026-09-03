@@ -6,7 +6,7 @@ import type { Mod } from "@/generated/prisma/client";
 
 type ModWithStringCost = Omit<Mod, "cost"> & { cost: string };
 
-export default function ModItem({ mod, isOwner }: { mod: ModWithStringCost; isOwner: boolean }) {
+export default function ModListItem({ mod, isOwner }: { mod: ModWithStringCost; isOwner: boolean }) {
     const router = useRouter();
     const [isEditing, setIsEditing] = useState(false);
     const [category, setCategory] = useState(mod.category);

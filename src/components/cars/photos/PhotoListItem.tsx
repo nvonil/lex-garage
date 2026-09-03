@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import type { Photo } from "@/generated/prisma/client";
 import Image from "next/image";
 
-export default function PhotoItem({ photo, isOwner }: { photo: Photo; isOwner: boolean }) {
+export default function PhotoListItem({ photo, isOwner }: { photo: Photo; isOwner: boolean }) {
     const router = useRouter();
 
     async function handleDelete() {

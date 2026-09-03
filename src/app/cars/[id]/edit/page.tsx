@@ -1,8 +1,8 @@
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
-import EditCarForm from "@/components/EditCarForm";
-import GuestPrompt from "@/components/GuestPrompt";
+import CarEditForm from "@/components/cars/CarEditForm";
+import GuestPrompt from "@/components/auth/GuestPrompt";
 
 export default async function EditCarPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -26,7 +26,7 @@ export default async function EditCarPage({ params }: { params: Promise<{ id: st
     return (
         <main className="flex-1 max-w-sm w-full mx-auto px-4 mt-16">
             <h1 className="text-2xl font-bold mb-6">Edit Build</h1>
-            <EditCarForm car={car} />
+            <CarEditForm car={car} />
         </main>
     );
 }

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-export default function DeleteCarButton({ carID }: { carID: string }) {
+export default function CarDeleteButton({ carID }: { carID: string }) {
     const router = useRouter();
 
     async function handleDelete() {

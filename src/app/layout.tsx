@@ -1,5 +1,5 @@
 import { getCurrentUser } from "@/lib/session";
-import Nav from "@/components/Nav";
+import Nav from "@/components/layout/Nav";
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";

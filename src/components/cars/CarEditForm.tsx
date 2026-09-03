@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Car } from "@/generated/prisma/client";
 
-export default function EditCarForm({ car }: { car: Car }) {
+export default function CarEditForm({ car }: { car: Car }) {
     const router = useRouter();
     const [model, setModel] = useState(car.model);
     const [year, setYear] = useState(car.year);

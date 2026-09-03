@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function AddPhotoForm({ carID }: { carID: string }) {
+export default function PhotoCreateForm({ carID }: { carID: string }) {
     const router = useRouter();
     const [file, setFile] = useState<File | null>(null);
     const [error, setError] = useState("");

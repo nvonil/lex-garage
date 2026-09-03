@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function AddModForm({ carID }: { carID: string }) {
+export default function ModCreateForm({ carID }: { carID: string }) {
     const router = useRouter();
     const [category, setCategory] = useState("");
     const [brand, setBrand] = useState("");

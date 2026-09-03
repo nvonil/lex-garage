@@ -2,8 +2,8 @@ import Link from "next/link";
 
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
-import GuestPrompt from "@/components/GuestPrompt";
-import CarThumbnail from "@/components/CarThumbnail";
+import GuestPrompt from "@/components/auth/GuestPrompt";
+import CarThumbnail from "@/components/cars/CarThumbnail";
 
 import { Plus } from "lucide-react";
 

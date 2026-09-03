@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import CarThumbnail from "@/components/CarThumbnail";
+import CarThumbnail from "@/components/cars/CarThumbnail";
 import type { Car, Mod, Photo, User } from "@/generated/prisma/client";
 
 type ModWithStringCost = Omit<Mod, "cost"> & { cost: string };
@@ -14,7 +14,7 @@ type CarWithDetails = Car & {
     user: User;
 };
 
-export default function BrowseGrid({ cars }: { cars: CarWithDetails[] }) {
+export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
     const [selectedCar, setSelectedCar] = useState<CarWithDetails | null>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [activePhotoIndex, setActivePhotoIndex] = useState(0);

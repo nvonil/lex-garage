@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
+
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
-import AddModForm from "@/components/AddModForm";
-import AddPhotoForm from "@/components/AddPhotoForm";
-import DeleteCarButton from "@/components/DeleteCarButton";
-import Link from "next/link";
-import ModItem from "@/components/ModItem";
-import PhotoItem from "@/components/PhotoItem";
+import ModCreateForm from "@/components/cars/mods/ModCreateForm";
+import PhotoCreateForm from "@/components/cars/photos/PhotoCreateForm";
+import CarDeleteButton from "@/components/cars/CarDeleteButton";
+import ModListItem from "@/components/cars/mods/ModListItem";
+import PhotoListItem from "@/components/cars/photos/PhotoListItem";
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -25,15 +26,24 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 
     return (
         <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-10">
-            <h1 className="text-2xl font-bold">
-                {car.year} {car.model}
-            </h1>
-            <p className="text-zinc-600 mb-6">{car.color}</p>
+            <div className="flex items-center gap-4">
+                <span className="text-xl font-bold">{car.model}</span>
+
+                <div className="flex gap-2">
+                    <span className="px-2 py-1 border border-accent rounded-xl text-text-secondary text-sm">
+                        {car.year}
+                    </span>
+
+                    <span className="px-2 py-1 border border-accent rounded-xl text-text-secondary text-sm">
+                        {car.color}
+                    </span>
+                </div>
+            </div>
 
             {car.photos.length > 0 && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
                     {car.photos.map((photo) => (
-                        <PhotoItem key={photo.id} photo={photo} isOwner={isOwner} />
+                        <PhotoListItem key={photo.id} photo={photo} isOwner={isOwner} />
                     ))}
                 </div>
             )}
@@ -44,7 +54,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
             ) : (
                 <ul className="flex flex-col gap-3">
                     {car.mods.map((mod) => (
-                        <ModItem key={mod.id} mod={{ ...mod, cost: mod.cost.toString() }} isOwner={isOwner} />
+                        <ModListItem key={mod.id} mod={{ ...mod, cost: mod.cost.toString() }} isOwner={isOwner} />
                     ))}
                 </ul>
             )}
@@ -54,8 +64,8 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                     <Link href={`/cars/${car.id}/edit`} className="underline">
                         Edit Build
                     </Link>
-                    <DeleteCarButton carID={car.id} />
-                    <AddModForm carID={car.id} /> <AddPhotoForm carID={car.id} />
+                    <CarDeleteButton carID={car.id} />
+                    <ModCreateForm carID={car.id} /> <PhotoCreateForm carID={car.id} />
                 </>
             )}
         </main>

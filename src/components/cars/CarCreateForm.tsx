@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function NewCarForm() {
+export default function CarCreateForm() {
     const router = useRouter();
     const [model, setModel] = useState("");
     const [year, setYear] = useState("");
