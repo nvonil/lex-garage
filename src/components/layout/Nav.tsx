@@ -13,7 +13,7 @@ export default function Nav({ user }: { user: User | null }) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="flex justify-between items-center h-20 px-12">
+        <header className="flex justify-between items-center h-20 px-12">
             <Link href="/" className="flex items-center gap-2">
                 <Image src="/images/lexgarage-logo.png" alt="LexGarage Logo" width={32} height={32} />
 
@@ -23,7 +23,7 @@ export default function Nav({ user }: { user: User | null }) {
                 </div>
             </Link>
 
-            <div className="flex items-center gap-12">
+            <nav className="flex items-center gap-12">
                 <Link href="/my-builds">My Builds</Link>
 
                 {user ? (
@@ -48,7 +48,7 @@ export default function Nav({ user }: { user: User | null }) {
                         Sign In
                     </Link>
                 )}
-            </div>
-        </nav>
+            </nav>
+        </header>
     );
 }

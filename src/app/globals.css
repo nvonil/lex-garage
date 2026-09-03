@@ -24,7 +24,7 @@
   }
 
   .button-primary {
-    @apply bg-charcoal text-pearl;
+    @apply border-none bg-charcoal text-pearl;
   }
 
   .button-secondary {
