@@ -32,7 +32,7 @@ export default async function Home() {
                 <h1 className="title-primary">Browse Builds</h1>
 
                 {cars.length === 0 ? (
-                    <div className="text-slate text-center">No builds posted yet</div>
+                    <div className="text-secondary text-center">No builds posted yet</div>
                 ) : (
                     <CarBrowseGrid cars={carsWithStringCost} />
                 )}

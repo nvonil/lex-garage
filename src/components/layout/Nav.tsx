@@ -15,11 +15,11 @@ export default function Nav({ user }: { user: User | null }) {
     return (
         <header className="flex justify-between items-center h-20 px-12">
             <Link href="/" className="flex items-center gap-2">
-                <Image src="/images/lexgarage-logo.png" alt="LexGarage Logo" width={32} height={32} />
+                <Image src="/images/logo.png" alt="LexGarage Logo" width={32} height={32} />
 
                 <div>
                     <span className="title-primary">Lex</span>
-                    <span className="text-xl text-charcoal">Garage</span>
+                    <span className="text-xl">Garage</span>
                 </div>
             </Link>
 
@@ -33,13 +33,13 @@ export default function Nav({ user }: { user: User | null }) {
                         </button>
 
                         {isOpen && (
-                            <>
+                            <div>
                                 <div className="fixed inset-0 z-10" onClick={() => setIsOpen(!isOpen)}></div>
 
                                 <div className="absolute right-0 mt-2 z-20 animate-[dropdown-in_150ms]">
                                     <LogoutButton />
                                 </div>
-                            </>
+                            </div>
                         )}
                     </div>
                 ) : (
