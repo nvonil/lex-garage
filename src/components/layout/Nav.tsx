@@ -5,8 +5,8 @@ import Image from "next/image";
 import { useState } from "react";
 
 import type { User } from "@/generated/prisma/client";
-import LogoutButton from "@/components/layout/LogoutButton";
 
+import LogoutButton from "@/components/layout/LogoutButton";
 import { User as UserIcon } from "lucide-react";
 
 export default function Nav({ user }: { user: User | null }) {
@@ -14,38 +14,36 @@ export default function Nav({ user }: { user: User | null }) {
 
     return (
         <nav className="flex justify-between items-center h-20 px-12">
-            <Link href="/" className="flex items-center gap-2 text-xl">
+            <Link href="/" className="flex items-center gap-2">
                 <Image src="/images/lexgarage-logo.png" alt="LexGarage Logo" width={32} height={32} />
-                <span>
-                    <span className="font-bold">Lex</span>
-                    <span>Garage</span>
-                </span>
+
+                <div>
+                    <span className="title-primary">Lex</span>
+                    <span className="text-xl text-charcoal">Garage</span>
+                </div>
             </Link>
 
             <div className="flex items-center gap-12">
-                <Link href="/">About</Link>
-
                 <Link href="/my-builds">My Builds</Link>
 
                 {user ? (
                     <div className="relative">
-                        <button className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-                            <span className="normal-case px-4 py-2 rounded-lg bg-text-primary text-background-primary hover:scale-102 transition-transform duration-300">
-                                @{user.username}
-                            </span>
+                        <button className="button button-primary" onClick={() => setIsOpen(!isOpen)}>
+                            @{user.username}
                         </button>
 
                         {isOpen && (
-                            <div className="absolute">
-                                <LogoutButton />
-                            </div>
+                            <>
+                                <div className="fixed inset-0 z-10" onClick={() => setIsOpen(!isOpen)}></div>
+
+                                <div className="absolute right-0 mt-2 z-20 animate-[dropdown-in_150ms]">
+                                    <LogoutButton />
+                                </div>
+                            </>
                         )}
                     </div>
                 ) : (
-                    <Link
-                        href="/login"
-                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-text-primary text-background-primary hover:scale-102 transition-transform duration-300"
-                    >
+                    <Link href="/login" className="button button-primary">
                         <UserIcon className="w-4 h-4" />
                         Sign In
                     </Link>

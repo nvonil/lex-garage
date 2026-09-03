@@ -1,16 +1,53 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background-primary: #f8f9fa;
-  --color-background-secondary: #e9ecef;
-
-  --color-text-primary: #212529;
-  --color-text-secondary: #6c757d;
-
-  --color-accent: #d9b453;
+  --color-pearl: #F8F9FA;
+  --color-mist: #E9ECEF;
+  --color-slate: #6C757D;
+  --color-charcoal: #212529;
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+@layer components {
+  .title-primary {
+    @apply text-xl text-charcoal font-bold;
+  }
+
+  .title-secondary {
+    @apply text-lg text-charcoal font-semibold
+  }
+
+  .button {
+    @apply flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer hover:scale-102 transition-transform duration-300;
+  }
+
+  .button-primary {
+    @apply bg-charcoal text-pearl;
+  }
+
+  .button-secondary {
+    @apply border border-mist bg-pearl text-charcoal;
+  }
+
+  .badge {
+    @apply px-2 py-2 border border-mist rounded-xl text-sm text-slate;
+  }
+
+  .card-interactive {
+    @apply flex flex-col gap-4 p-4 border border-charcoal rounded-lg hover:scale-105 transition-transform duration-300;
+  }
+}
+
+@keyframes dropdown-in {
+  from {
+    transform: translateY(-8px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
 
 @keyframes progress-fill {
@@ -24,6 +61,6 @@
 }
 
 body {
-  background: var(--color-background-primary);
-  color: var(--color-text-primary);
+  background: var(--color-pearl);
+  color: var(--color-charcoal);
 }
