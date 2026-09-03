@@ -21,7 +21,7 @@ export default async function MyBuildsPage() {
     });
 
     return (
-        <main className="flex flex-col gap-12 max-w-7xl w-full mx-auto px-6 py-12">
+        <main className="flex flex-col gap-12 max-w-6xl w-full mx-auto px-6 py-12">
             <div className="flex justify-between items-center">
                 <div>
                     <h1 className="text-xl font-bold">My Builds</h1>

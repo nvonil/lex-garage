@@ -8,11 +8,11 @@ export default function CarThumbnail({ imageURL, alt }: { imageURL: string | und
                 alt={alt}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                className="rounded-lg object-cover"
+                className="object-cover rounded-lg"
             />
         </div>
     ) : (
-        <div className="aspect-video w-full flex justify-center items-center rounded-lg bg-background-secondary text-text-secondary text-sm">
+        <div className="aspect-video w-full flex justify-center items-center rounded-lg bg-mist text-secondary">
             No Photo
         </div>
     );

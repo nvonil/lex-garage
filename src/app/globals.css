@@ -24,7 +24,7 @@
     }
 
     .button {
-        @apply flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer hover:scale-102 transition-transform duration-300;
+        @apply flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer hover:scale-105 transition-transform duration-300;
     }
 
     .button-primary {
@@ -32,15 +32,19 @@
     }
 
     .button-secondary {
-        @apply border border-mist bg-pearl text-charcoal;
+        @apply border border-charcoal bg-pearl text-charcoal;
     }
 
     .badge {
-        @apply px-2 py-2 border border-mist rounded-xl text-sm text-slate;
+        @apply px-2 py-1 border border-slate rounded-xl text-sm text-slate;
     }
 
     .card-interactive {
-        @apply flex flex-col gap-4 p-4 border border-charcoal rounded-lg hover:scale-105 transition-transform duration-300;
+        @apply flex flex-col gap-4 p-4 border border-charcoal rounded-lg cursor-pointer hover:scale-102 transition-transform duration-300;
+    }
+
+    .modal-backdrop {
+        @apply fixed inset-0 z-50 flex justify-center items-center bg-charcoal/70 transition-opacity duration-300;
     }
 }
 
