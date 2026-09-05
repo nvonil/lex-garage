@@ -20,9 +20,19 @@ export default function CarCreateButton() {
         requestAnimationFrame(() => setIsVisible(true));
     }
 
+    function resetForm() {
+        setModel("");
+        setYear("");
+        setColor("");
+        setError("");
+    }
+
     function closeModal() {
         setIsVisible(false);
-        setTimeout(() => setIsOpen(false), 300);
+        setTimeout(() => {
+            setIsOpen(false);
+            resetForm();
+        }, 300);
     }
 
     async function handleSubmit(e: React.FormEvent) {
@@ -42,6 +52,7 @@ export default function CarCreateButton() {
             return;
         }
 
+        resetForm();
         router.push(`/cars/${data.id}`);
     }
 
@@ -54,34 +65,53 @@ export default function CarCreateButton() {
 
             {isOpen && (
                 <div onClick={closeModal} className={`modal-backdrop ${isVisible ? "opacity-100" : "opacity-0"}`}>
-                    <div onClick={(e) => e.stopPropagation()} className="max-w-sm mx-auto p-6 rounded-lg bg-pearl">
-                        <div className="title-primary mb-6">Post a Build</div>
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        className="max-w-sm w-full mx-auto p-6 rounded-lg bg-pearl"
+                    >
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                            <div className="flex flex-col gap-2">
+                                <label htmlFor="model" className="font-semibold">
+                                    Model
+                                </label>
 
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                            <input
-                                type="text"
-                                placeholder="Model (e.g. IS 350)"
-                                value={model}
-                                onChange={(e) => setModel(e.target.value)}
-                                className="input"
-                                autoFocus
-                            />
+                                <input
+                                    type="text"
+                                    placeholder="e.g. IS 350"
+                                    value={model}
+                                    onChange={(e) => setModel(e.target.value)}
+                                    className="input"
+                                    autoFocus
+                                />
+                            </div>
 
-                            <input
-                                type="text"
-                                placeholder="Year"
-                                value={year}
-                                onChange={(e) => setYear(e.target.value)}
-                                className="input"
-                            />
+                            <div className="flex flex-col gap-2">
+                                <label htmlFor="year" className="font-semibold">
+                                    Year
+                                </label>
 
-                            <input
-                                type="text"
-                                placeholder="Color"
-                                value={color}
-                                onChange={(e) => setColor(e.target.value)}
-                                className="input"
-                            />
+                                <input
+                                    type="text"
+                                    placeholder="e.g. 2023"
+                                    value={year}
+                                    onChange={(e) => setYear(e.target.value)}
+                                    className="input"
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label htmlFor="color" className="font-semibold">
+                                    Color
+                                </label>
+
+                                <input
+                                    type="text"
+                                    placeholder="e.g. Caviar"
+                                    value={color}
+                                    onChange={(e) => setColor(e.target.value)}
+                                    className="input"
+                                />
+                            </div>
 
                             {error && (
                                 <div className="text-sm text-[#e5383b] first-letter:capitalize text-center">
@@ -89,9 +119,9 @@ export default function CarCreateButton() {
                                 </div>
                             )}
 
-                            <div className="flex gap-2 mt-2">
+                            <div className="flex gap-3 mt-2">
                                 <button type="submit" className="button button-primary flex-1 justify-center">
-                                    Post
+                                    Post Build
                                 </button>
 
                                 <button type="button" onClick={closeModal} className="button button-secondary">
