@@ -28,7 +28,7 @@ export default async function Home() {
                 </Link>
             </section>
 
-            <section className="flex flex-col gap-6 max-w-6xl w-full mx-auto py-12">
+            <section className="flex flex-col gap-6 max-w-6xl w-full mx-auto px-6 py-12">
                 <h1 className="title-primary">Browse Builds</h1>
 
                 {cars.length === 0 ? (

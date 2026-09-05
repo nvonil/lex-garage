@@ -5,14 +5,16 @@ import { useRouter } from "next/navigation";
 
 import { Plus } from "lucide-react";
 
-export default function CarCreateButton() {
+export default function ModCreateButton({ carID }: { carID: string }) {
     const router = useRouter();
     const [isOpen, setIsOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
 
-    const [model, setModel] = useState("");
-    const [year, setYear] = useState("");
-    const [color, setColor] = useState("");
+    const [category, setCategory] = useState("");
+    const [brand, setBrand] = useState("");
+    const [name, setName] = useState("");
+    const [cost, setCost] = useState("");
+    const [url, setUrl] = useState("");
     const [error, setError] = useState("");
 
     function openModal() {
@@ -24,9 +26,11 @@ export default function CarCreateButton() {
         setIsVisible(false);
         setTimeout(() => {
             setIsOpen(false);
-            setModel("");
-            setYear("");
-            setColor("");
+            setCategory("");
+            setBrand("");
+            setName("");
+            setCost("");
+            setUrl("");
             setError("");
         }, 300);
     }
@@ -35,10 +39,16 @@ export default function CarCreateButton() {
         e.preventDefault();
         setError("");
 
-        const res = await fetch("/api/cars", {
+        const res = await fetch(`/api/cars/${carID}/mods`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ model, year, color }),
+            body: JSON.stringify({
+                category,
+                brand,
+                name,
+                cost: parseFloat(cost),
+                url: url || undefined,
+            }),
         });
 
         const data = await res.json();
@@ -48,7 +58,7 @@ export default function CarCreateButton() {
             return;
         }
 
-        router.push(`/cars/${data.id}`);
+        router.refresh();
         closeModal();
     }
 
@@ -56,7 +66,7 @@ export default function CarCreateButton() {
         <>
             <button onClick={openModal} className="button button-primary">
                 <Plus className="w-4 h-4" />
-                Post a Build
+                Add Mod
             </button>
 
             {isOpen && (
@@ -67,49 +77,73 @@ export default function CarCreateButton() {
                     >
                         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                             <div className="flex flex-col gap-2">
-                                <label htmlFor="model" className="font-semibold">
-                                    Model
+                                <label htmlFor="category" className="font-semibold">
+                                    Category
                                 </label>
 
                                 <input
-                                    id="model"
+                                    id="category"
                                     type="text"
-                                    placeholder="e.g. IS 350"
-                                    value={model}
-                                    onChange={(e) => setModel(e.target.value)}
+                                    value={category}
+                                    onChange={(e) => setCategory(e.target.value)}
                                     className="input"
                                     autoFocus
                                 />
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <label htmlFor="year" className="font-semibold">
-                                    Year
+                                <label htmlFor="brand" className="font-semibold">
+                                    Brand
                                 </label>
 
                                 <input
-                                    id="year"
-                                    type="number"
-                                    min="1800"
-                                    max="2099"
-                                    placeholder="e.g. 2023"
-                                    value={year}
-                                    onChange={(e) => setYear(e.target.value)}
+                                    id="brand"
+                                    type="text"
+                                    value={brand}
+                                    onChange={(e) => setBrand(e.target.value)}
                                     className="input"
                                 />
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <label htmlFor="color" className="font-semibold">
-                                    Color
+                                <label htmlFor="name" className="font-semibold">
+                                    Name
                                 </label>
 
                                 <input
-                                    id="color"
+                                    id="name"
                                     type="text"
-                                    placeholder="e.g. Caviar"
-                                    value={color}
-                                    onChange={(e) => setColor(e.target.value)}
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className="input"
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label htmlFor="cost" className="font-semibold">
+                                    Cost
+                                </label>
+
+                                <input
+                                    id="cost"
+                                    type="number"
+                                    min="0"
+                                    value={cost}
+                                    onChange={(e) => setCost(e.target.value)}
+                                    className="input"
+                                />
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label htmlFor="url" className="font-semibold">
+                                    Link (Optional)
+                                </label>
+
+                                <input
+                                    id="url"
+                                    type="url"
+                                    value={url}
+                                    onChange={(e) => setUrl(e.target.value)}
                                     className="input"
                                 />
                             </div>
@@ -122,7 +156,7 @@ export default function CarCreateButton() {
 
                             <div className="flex gap-3 mt-2">
                                 <button type="submit" className="button button-primary flex-1 justify-center">
-                                    Post Build
+                                    Add Mod
                                 </button>
 
                                 <button type="button" onClick={closeModal} className="button button-secondary">

@@ -1,13 +1,15 @@
-import { notFound } from "next/navigation";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
-import ModCreateForm from "@/components/cars/mods/ModCreateForm";
-import PhotoCreateForm from "@/components/cars/photos/PhotoCreateForm";
+
 import CarDeleteButton from "@/components/cars/CarDeleteButton";
+import PhotoCreateButton from "@/components/cars/photos/PhotoCreateButton";
+import ModCreateButton from "@/components/cars/mods/ModCreateButton";
+import PhotoGallery from "@/components/cars/photos/PhotoGallery";
 import ModListItem from "@/components/cars/mods/ModListItem";
-import PhotoListItem from "@/components/cars/photos/PhotoListItem";
+import { Pencil } from "lucide-react";
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -25,49 +27,62 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
     const isOwner = user?.id === car.userID;
 
     return (
-        <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-10">
-            <div className="flex items-center gap-4">
-                <span className="text-xl font-bold">{car.model}</span>
+        <main className="flex flex-col gap-12 max-w-6xl w-full mx-auto px-6 py-12">
+            <div className="flex justify-between items-center">
+                <div className="flex items-center gap-4">
+                    <span className="title-primary">{car.model}</span>
 
-                <div className="flex gap-2">
-                    <span className="px-2 py-1 border border-accent rounded-xl text-text-secondary text-sm">
-                        {car.year}
-                    </span>
-
-                    <span className="px-2 py-1 border border-accent rounded-xl text-text-secondary text-sm">
-                        {car.color}
-                    </span>
+                    <div className="flex gap-2">
+                        <span className="badge">{car.year}</span>
+                        <span className="badge">{car.color}</span>
+                    </div>
                 </div>
+
+                {isOwner && (
+                    <div className="flex gap-4">
+                        <Link href={`/cars/${car.id}/edit`} className="button button-secondary">
+                            <Pencil className="w-4 h-4" />
+                            Edit Build
+                        </Link>
+
+                        <CarDeleteButton carID={car.id} />
+                    </div>
+                )}
             </div>
 
-            {car.photos.length > 0 && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
-                    {car.photos.map((photo) => (
-                        <PhotoListItem key={photo.id} photo={photo} isOwner={isOwner} />
-                    ))}
+            <div className="grid grid-cols-[6fr_4fr] gap-8 items-start">
+                <div>
+                    <div className="flex justify-between items-center mb-4">
+                        <div className="title-secondary">Photos</div>
+
+                        {isOwner && <PhotoCreateButton carID={car.id} />}
+                    </div>
+
+                    <PhotoGallery photos={car.photos} isOwner={isOwner} />
                 </div>
-            )}
 
-            <h2 className="text-lg font-semibold mb-3">Mods</h2>
-            {car.mods.length === 0 ? (
-                <p className="text-zinc-500">No mods listed yet.</p>
-            ) : (
-                <ul className="flex flex-col gap-3">
-                    {car.mods.map((mod) => (
-                        <ModListItem key={mod.id} mod={{ ...mod, cost: mod.cost.toString() }} isOwner={isOwner} />
-                    ))}
-                </ul>
-            )}
+                <div>
+                    <div className="flex justify-between items-center mb-4">
+                        <div className="title-secondary">Mods</div>
 
-            {isOwner && (
-                <>
-                    <Link href={`/cars/${car.id}/edit`} className="underline">
-                        Edit Build
-                    </Link>
-                    <CarDeleteButton carID={car.id} />
-                    <ModCreateForm carID={car.id} /> <PhotoCreateForm carID={car.id} />
-                </>
-            )}
+                        {isOwner && <ModCreateButton carID={car.id} />}
+                    </div>
+
+                    {car.mods.length === 0 ? (
+                        <div className="text-secondary">No mods listed yet</div>
+                    ) : (
+                        <ul className="flex flex-col gap-4">
+                            {car.mods.map((mod) => (
+                                <ModListItem
+                                    key={mod.id}
+                                    mod={{ ...mod, cost: mod.cost.toString() }}
+                                    isOwner={isOwner}
+                                />
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            </div>
         </main>
     );
 }
