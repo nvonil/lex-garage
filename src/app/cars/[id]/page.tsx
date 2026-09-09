@@ -1,15 +1,14 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
 
+import CarEditButton from "@/components/cars/CarEditButton";
 import CarDeleteButton from "@/components/cars/CarDeleteButton";
 import PhotoCreateButton from "@/components/cars/photos/PhotoCreateButton";
 import ModCreateButton from "@/components/cars/mods/ModCreateButton";
 import PhotoGallery from "@/components/cars/photos/PhotoGallery";
 import ModListItem from "@/components/cars/mods/ModListItem";
-import { Pencil } from "lucide-react";
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -40,11 +39,16 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 
                 {isOwner && (
                     <div className="flex gap-4">
-                        <Link href={`/cars/${car.id}/edit`} className="button button-secondary">
-                            <Pencil className="w-4 h-4" />
-                            Edit
-                        </Link>
-
+                        <CarEditButton
+                            car={{
+                                id: car.id,
+                                model: car.model,
+                                year: car.year,
+                                color: car.color,
+                                datePosted: car.datePosted,
+                                userID: car.userID,
+                            }}
+                        />
                         <CarDeleteButton carID={car.id} />
                     </div>
                 )}
