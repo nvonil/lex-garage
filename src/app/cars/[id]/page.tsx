@@ -42,7 +42,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                     <div className="flex gap-4">
                         <Link href={`/cars/${car.id}/edit`} className="button button-secondary">
                             <Pencil className="w-4 h-4" />
-                            Edit Build
+                            Edit
                         </Link>
 
                         <CarDeleteButton carID={car.id} />
@@ -52,7 +52,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 
             <div className="grid grid-cols-[6fr_4fr] gap-8 items-start">
                 <div>
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex justify-between items-center mb-6">
                         <div className="title-secondary">Photos</div>
 
                         {isOwner && <PhotoCreateButton carID={car.id} />}
@@ -62,7 +62,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                 </div>
 
                 <div>
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex justify-between items-center mb-6">
                         <div className="title-secondary">Mods</div>
 
                         {isOwner && <ModCreateButton carID={car.id} />}

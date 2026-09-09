@@ -6,6 +6,7 @@ import { useState } from "react";
 import type { User, Car, Mod, Photo } from "@/generated/prisma/client";
 
 import CarThumbnail from "@/components/cars/CarThumbnail";
+import { ExternalLink } from "lucide-react";
 
 type ModWithStringCost = Omit<Mod, "cost"> & { cost: string };
 
@@ -105,9 +106,25 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                                 ) : (
                                     <ul className="flex flex-col gap-1">
                                         {selectedCar.mods.map((mod) => (
-                                            <li key={mod.id} className="pl-4">
-                                                <span className="font-medium">{mod.category}</span> — {mod.brand}{" "}
-                                                {mod.name} (${mod.cost})
+                                            <li key={mod.id}>
+                                                <div className="flex items-center gap-2 font-medium">
+                                                    <span>
+                                                        {mod.category} — {mod.brand} {mod.name}
+                                                    </span>
+
+                                                    {mod.url && (
+                                                        <a
+                                                            href={mod.url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="text-slate cursor-pointer hover:text-charcoal transition-colors duration-300"
+                                                        >
+                                                            <ExternalLink className="w-4 h-4" />
+                                                        </a>
+                                                    )}
+                                                </div>
+
+                                                <div className="pl-4 text-secondary">${mod.cost}</div>
                                             </li>
                                         ))}
                                     </ul>

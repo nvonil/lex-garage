@@ -47,7 +47,7 @@ export default function PhotoGallery({ photos, isOwner }: { photos: Photo[]; isO
                             key={photo.id}
                             onClick={() => setActiveIndex(index)}
                             className={`relative w-16 h-16 border-2 rounded-lg cursor-pointer overflow-hidden transition-colors duration-300 ${
-                                index === activeIndex ? "border-charcoal" : "border-transparent"
+                                index === activeIndex ? "border-slate" : "border-transparent"
                             }`}
                         >
                             <Image src={photo.imageURL} alt="" fill className="object-cover" />

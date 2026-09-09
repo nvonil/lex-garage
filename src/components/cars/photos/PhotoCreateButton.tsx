@@ -76,7 +76,7 @@ export default function PhotoCreateButton({ carID }: { carID: string }) {
         <>
             <button onClick={openModal} className="button button-primary">
                 <Plus className="w-4 h-4" />
-                Add Photo
+                Upload
             </button>
 
             {isOpen && (

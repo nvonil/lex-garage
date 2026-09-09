@@ -31,7 +31,7 @@ export default function CarDeleteButton({ carID }: { carID: string }) {
             className="button button-secondary bg-pearl hover:border-[#e5383b] hover:text-[#e5383b]"
         >
             <Trash2 className="w-4 h-4" />
-            Delete Build
+            Delete
         </button>
     );
 }

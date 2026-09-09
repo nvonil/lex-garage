@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+
 import type { Mod } from "@/generated/prisma/client";
+
+import { ExternalLink, Pencil, Trash2 } from "lucide-react";
 
 type ModWithStringCost = Omit<Mod, "cost"> & { cost: string };
 
@@ -45,6 +48,7 @@ export default function ModListItem({ mod, isOwner }: { mod: ModWithStringCost; 
 
     async function handleDelete() {
         const confirmed = window.confirm("Delete this mod?");
+
         if (!confirmed) {
             return;
         }
@@ -71,53 +75,41 @@ export default function ModListItem({ mod, isOwner }: { mod: ModWithStringCost; 
 
     if (isEditing) {
         return (
-            <li className="border rounded-lg p-3">
-                <form onSubmit={handleSave} className="flex flex-col gap-2">
-                    <input
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        className="border rounded px-2 py-1"
-                        required
-                    />
+            <li className="p-4 border border-charcoal rounded-lg">
+                <form onSubmit={handleSave} className="flex flex-col gap-3">
+                    <input value={category} onChange={(e) => setCategory(e.target.value)} className="input" required />
 
-                    <input
-                        value={brand}
-                        onChange={(e) => setBrand(e.target.value)}
-                        className="border rounded px-2 py-1"
-                        required
-                    />
+                    <input value={brand} onChange={(e) => setBrand(e.target.value)} className="input" required />
 
-                    <input
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="border rounded px-2 py-1"
-                        required
-                    />
+                    <input value={name} onChange={(e) => setName(e.target.value)} className="input" required />
 
                     <input
                         type="number"
-                        step="0.01"
+                        min="0"
                         value={cost}
                         onChange={(e) => setCost(e.target.value)}
-                        className="border rounded px-2 py-1"
+                        className="input"
                         required
                     />
 
                     <input
+                        type="url"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
-                        className="border rounded px-2 py-1"
+                        className="input"
                         placeholder="Link (optional)"
                     />
 
-                    {error && <p className="text-red-600 text-sm">{error}</p>}
+                    {error && (
+                        <div className="text-sm text-[#e5383b] first-letter:capitalize text-center">{error}.</div>
+                    )}
 
-                    <div className="flex gap-3">
-                        <button type="submit" className="bg-black text-white rounded px-3 py-1 text-sm">
+                    <div className="flex gap-3 mt-1.5">
+                        <button type="submit" className="button button-primary">
                             Save
                         </button>
 
-                        <button type="button" onClick={handleCancel} className="text-sm">
+                        <button type="button" onClick={handleCancel} className="button button-secondary">
                             Cancel
                         </button>
                     </div>
@@ -127,33 +119,45 @@ export default function ModListItem({ mod, isOwner }: { mod: ModWithStringCost; 
     }
 
     return (
-        <li className="border rounded-lg p-3">
-            <p className="font-medium">
-                {mod.category} — {mod.brand} {mod.name}
-            </p>
+        <li className="flex flex-col gap-2 p-4 border border-charcoal rounded-lg">
+            <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2 font-medium">
+                    <span>
+                        {mod.category} — {mod.brand} {mod.name}
+                    </span>
 
-            <p className="text-sm text-zinc-600">
-                ${mod.cost.toString()}
-                {mod.url && (
-                    <>
-                        {" · "}
-                        <a href={mod.url} className="underline" target="_blank">
-                            link
+                    {mod.url && (
+                        <a
+                            href={mod.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-slate cursor-pointer hover:text-charcoal transition-colors duration-300"
+                        >
+                            <ExternalLink className="w-4 h-4" />
                         </a>
-                    </>
-                )}
-            </p>
-
-            {isOwner && (
-                <div className="flex gap-3 mt-2 text-sm">
-                    <button onClick={() => setIsEditing(true)} className="underline">
-                        Edit
-                    </button>
-                    <button onClick={handleDelete} className="underline text-red-600">
-                        Delete
-                    </button>
+                    )}
                 </div>
-            )}
+
+                {isOwner && (
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => setIsEditing(true)}
+                            className="text-slate cursor-pointer hover:text-charcoal transition-colors duration-300"
+                        >
+                            <Pencil className="w-4 h-4" />
+                        </button>
+
+                        <button
+                            onClick={handleDelete}
+                            className="text-slate cursor-pointer hover:text-[#e5383b] transition-colors duration-300"
+                        >
+                            <Trash2 className="w-4 h-4" />
+                        </button>
+                    </div>
+                )}
+            </div>
+
+            <div className="text-secondary">${mod.cost.toString()}</div>
         </li>
     );
 }

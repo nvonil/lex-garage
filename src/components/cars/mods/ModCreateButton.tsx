@@ -66,7 +66,7 @@ export default function ModCreateButton({ carID }: { carID: string }) {
         <>
             <button onClick={openModal} className="button button-primary">
                 <Plus className="w-4 h-4" />
-                Add Mod
+                Add
             </button>
 
             {isOpen && (
@@ -84,6 +84,7 @@ export default function ModCreateButton({ carID }: { carID: string }) {
                                 <input
                                     id="category"
                                     type="text"
+                                    placeholder="e.g. Exhaust"
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value)}
                                     className="input"
@@ -99,6 +100,7 @@ export default function ModCreateButton({ carID }: { carID: string }) {
                                 <input
                                     id="brand"
                                     type="text"
+                                    placeholder="e.g. Borla"
                                     value={brand}
                                     onChange={(e) => setBrand(e.target.value)}
                                     className="input"
@@ -113,6 +115,7 @@ export default function ModCreateButton({ carID }: { carID: string }) {
                                 <input
                                     id="name"
                                     type="text"
+                                    placeholder="e.g. Axleback"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     className="input"
