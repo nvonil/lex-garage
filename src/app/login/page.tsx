@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -23,7 +23,7 @@ export default function LoginPage() {
         const data = await res.json();
 
         if (!res.ok) {
-            setError(data.error || "Something went wrong");
+            setError(data.error || "something went wrong");
             return;
         }
 
@@ -32,41 +32,40 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="max-w-sm mx-auto mt-16 px-4">
-            <h1 className="text-2xl font-bold mb-6">Log In</h1>
+        <div className="flex flex-col items-center max-w-xs w-full mx-auto px-6 mt-16">
+            <h1 className="title-primary mb-6">Log In</h1>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
                 <input
                     type="email"
-                    placeholder="Email"
                     value={email}
+                    placeholder="Email"
                     onChange={(e) => setEmail(e.target.value)}
-                    className="border rounded px-3 py-2"
-                    required
+                    className="input"
+                    autoFocus
                 />
 
                 <input
                     type="password"
-                    placeholder="Password"
                     value={password}
+                    placeholder="Password"
                     onChange={(e) => setPassword(e.target.value)}
-                    className="border rounded px-3 py-2"
-                    required
+                    className="input"
                 />
 
-                {error && <p className="text-red-600 text-sm">{error}</p>}
+                {error && <div className="text-sm text-[#e5383b] first-letter:capitalize text-center">{error}.</div>}
 
-                <button type="submit" className="bg-black text-white rounded px-3 py-2">
+                <button type="submit" className="button button-primary justify-center mt-3 mb-6">
                     Log In
                 </button>
             </form>
 
-            <p className="mt-4 text-sm">
+            <div className="text-secondary">
                 Don&apos;t have an account?{" "}
-                <Link href="/signup" className="underline">
+                <Link href="/signup" className="text-charcoal underline">
                     Sign up
                 </Link>
-            </p>
+            </div>
         </div>
     );
 }

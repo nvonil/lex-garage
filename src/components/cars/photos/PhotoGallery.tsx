@@ -62,7 +62,7 @@ export default function PhotoGallery({ photos, isOwner }: { photos: Photo[]; isO
                 {isOwner && (
                     <button
                         onClick={() => handleDelete(photos[activeIndex].id)}
-                        className="absolute top-4 right-4 p-2 rounded-full bg-charcoal/70 text-pearl cursor-pointer"
+                        className="absolute top-4 right-4 p-2 rounded-full bg-charcoal/70 text-pearl cursor-pointer hover:text-[#e5383b] transition-colors duration-300"
                     >
                         <Trash2 className="w-4 h-4" />
                     </button>
