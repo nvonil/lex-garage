@@ -89,7 +89,13 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                                                     index === activePhotoIndex ? "border-slate" : "border-transparent"
                                                 }`}
                                             >
-                                                <Image src={photo.imageURL} alt="" fill className="object-cover" />
+                                                <Image
+                                                    src={photo.imageURL}
+                                                    alt=""
+                                                    fill
+                                                    sizes="48px"
+                                                    className="object-cover"
+                                                />
                                             </button>
                                         ))}
                                     </div>

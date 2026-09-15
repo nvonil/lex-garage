@@ -50,14 +50,21 @@ export default function PhotoGallery({ photos, isOwner }: { photos: Photo[]; isO
                                 index === activeIndex ? "border-slate" : "border-transparent"
                             }`}
                         >
-                            <Image src={photo.imageURL} alt="" fill className="object-cover" />
+                            <Image src={photo.imageURL} alt="" fill sizes="64px" className="object-cover" />
                         </button>
                     ))}
                 </div>
             )}
 
             <div className="relative aspect-square flex-1 rounded-lg overflow-hidden">
-                <Image src={photos[activeIndex].imageURL} alt="" fill className="object-cover" />
+                <Image
+                    src={photos[activeIndex].imageURL}
+                    alt=""
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                    className="object-cover"
+                />
 
                 {isOwner && (
                     <button
