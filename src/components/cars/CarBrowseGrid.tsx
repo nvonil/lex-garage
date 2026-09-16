@@ -73,19 +73,19 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                         </div>
 
                         <div className="grid grid-cols-[6fr_4fr] gap-8 items-start">
-                            <div className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-4 min-w-0">
                                 <CarThumbnail
                                     imageURL={selectedCar.photos[activePhotoIndex]?.imageURL}
                                     alt={`${selectedCar.model}`}
                                 />
 
                                 {selectedCar.photos.length > 1 && (
-                                    <div className="flex gap-2">
+                                    <div className="custom-scrollbar flex gap-2 pb-2 overflow-x-auto">
                                         {selectedCar.photos.map((photo, index) => (
                                             <button
                                                 key={photo.id}
                                                 onClick={() => setActivePhotoIndex(index)}
-                                                className={`relative w-12 h-12 border-2 rounded-lg cursor-pointer overflow-hidden transition-colors duration-300 ${
+                                                className={`relative w-12 h-12 shrink-0 border-2 rounded-lg cursor-pointer overflow-hidden transition-colors duration-300 ${
                                                     index === activePhotoIndex ? "border-slate" : "border-transparent"
                                                 }`}
                                             >
@@ -110,7 +110,7 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                                 {selectedCar.mods.length === 0 ? (
                                     <div className="text-secondary">No mods listed yet</div>
                                 ) : (
-                                    <ul className="flex flex-col gap-1">
+                                    <ul className="custom-scrollbar flex flex-col gap-1 max-h-75 pr-2 overflow-y-auto">
                                         {selectedCar.mods.map((mod) => (
                                             <li key={mod.id}>
                                                 <div className="flex items-center gap-2 font-medium">

@@ -75,7 +75,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                     {car.mods.length === 0 ? (
                         <div className="text-secondary">No mods listed yet</div>
                     ) : (
-                        <ul className="flex flex-col gap-4">
+                        <ul className="custom-scrollbar flex flex-col gap-4 max-h-137.5 pr-2 overflow-y-auto">
                             {car.mods.map((mod) => (
                                 <ModListItem
                                     key={mod.id}

@@ -39,14 +39,14 @@ export default function PhotoGallery({ photos, isOwner }: { photos: Photo[]; isO
     }
 
     return (
-        <div className="flex gap-4">
+        <div className="flex items-start gap-4">
             {photos.length > 1 && (
-                <div className="flex flex-col gap-2">
+                <div className="custom-scrollbar flex flex-col gap-2 max-h-137.5 pr-2 overflow-y-auto">
                     {photos.map((photo, index) => (
                         <button
                             key={photo.id}
                             onClick={() => setActiveIndex(index)}
-                            className={`relative w-16 h-16 border-2 rounded-lg cursor-pointer overflow-hidden transition-colors duration-300 ${
+                            className={`relative w-16 h-16 shrink-0 border-2 rounded-lg cursor-pointer overflow-hidden transition-colors duration-300 ${
                                 index === activeIndex ? "border-slate" : "border-transparent"
                             }`}
                         >

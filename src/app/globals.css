@@ -72,6 +72,21 @@
     }
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: var(--color-mist);
+    border-radius: 1rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-slate);
+    border-radius: 1rem;
+}
+
 body {
     background: var(--color-pearl);
     color: var(--color-charcoal);
