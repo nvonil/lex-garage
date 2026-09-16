@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import type { User } from "@/generated/prisma/client";
 
@@ -12,24 +12,32 @@ import { User as UserIcon } from "lucide-react";
 export default function Nav({ user }: { user: User | null }) {
     const [isOpen, setIsOpen] = useState(false);
 
+    useEffect(() => {
+        setIsOpen(false);
+    }, [user?.id]);
+
     return (
-        <header className="flex justify-between items-center h-20 px-12">
+        <header className="flex justify-between items-center h-20 px-4 sm:px-8 md:px-12">
             <Link href="/" className="flex items-center gap-2">
                 <Image src="/images/logo.png" alt="LexGarage Logo" width={32} height={32} />
 
-                <div>
+                <div className="hidden sm:block">
                     <span className="title-primary">Lex</span>
                     <span className="text-xl">Garage</span>
                 </div>
             </Link>
 
-            <nav className="flex items-center gap-12">
+            <nav className="flex items-center gap-4 sm:gap-8 md:gap-12">
                 <Link href="/my-builds">My Builds</Link>
 
                 {user ? (
                     <div className="relative">
-                        <button className="button button-primary" onClick={() => setIsOpen(!isOpen)}>
-                            @{user.username}
+                        <button
+                            className="button button-primary p-2 sm:px-4 sm:py-2"
+                            onClick={() => setIsOpen(!isOpen)}
+                        >
+                            <UserIcon className="w-4 h-4 sm:hidden" />
+                            <span className="hidden sm:inline">@{user.username}</span>
                         </button>
 
                         {isOpen && (
@@ -43,9 +51,9 @@ export default function Nav({ user }: { user: User | null }) {
                         )}
                     </div>
                 ) : (
-                    <Link href="/login" className="button button-primary">
+                    <Link href="/login" className="button button-primary p-2 sm:px-4 sm:py-2">
                         <UserIcon className="w-4 h-4" />
-                        Sign In
+                        <span className="hidden sm:inline">Sign In</span>
                     </Link>
                 )}
             </nav>

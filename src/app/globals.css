@@ -24,7 +24,7 @@
     }
 
     .button {
-        @apply flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer;
+        @apply flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer whitespace-nowrap;
     }
 
     .button-primary {

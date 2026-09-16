@@ -20,8 +20,10 @@ export default async function Home() {
         <main>
             <HeroCarousel />
 
-            <section className="flex justify-between items-center h-20 px-24 bg-charcoal">
-                <div className="text-xl text-pearl">Post your build. Track every mod. Connect with owners.</div>
+            <section className="flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-3 px-6 sm:px-12 md:px-24 py-6 bg-charcoal">
+                <div className="text-lg sm:text-xl text-pearl text-center">
+                    Post your build. Track every mod. Connect with owners.
+                </div>
 
                 <Link href="/my-builds" className="button button-secondary">
                     Start Your Build

@@ -23,10 +23,10 @@ export default function HeroCarousel() {
     }, []);
 
     return (
-        <section className="relative h-150">
+        <section className="relative h-100 sm:h-125 md:h-150">
             <Image
                 src={images[current].src}
-                alt="Lexus LC 500"
+                alt="Lexus LC 500, photo by Brandon Russell on Unsplash"
                 fill
                 priority
                 className="object-cover"
@@ -47,7 +47,9 @@ export default function HeroCarousel() {
                 ))}
             </div>
 
-            <div className="absolute bottom-6 right-6 text-xs text-pearl/70">Photo by Brandon Russell on Unsplash</div>
+            <div className="hidden sm:block absolute bottom-6 right-6 text-xs text-pearl/70 whitespace-nowrap">
+                Photo by Brandon Russell on Unsplash
+            </div>
         </section>
     );
 }
