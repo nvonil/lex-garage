@@ -6,7 +6,7 @@ import { useState } from "react";
 import type { User, Car, Mod, Photo } from "@/generated/prisma/client";
 
 import CarThumbnail from "@/components/cars/CarThumbnail";
-import { ExternalLink } from "lucide-react";
+import { X, ExternalLink } from "lucide-react";
 
 type ModWithStringCost = Omit<Mod, "cost"> & { cost: string };
 
@@ -56,7 +56,10 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                     onClick={() => closeModal()}
                     className={`modal-backdrop ${isVisible ? "opacity-100" : "opacity-0"}`}
                 >
-                    <div onClick={(e) => e.stopPropagation()} className="max-w-4xl w-full p-6 rounded-lg bg-pearl">
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        className="max-w-4xl w-full max-h-[75vh] mx-6 p-6 rounded-lg bg-pearl overflow-y-auto"
+                    >
                         <div className="flex justify-between items-center mb-4">
                             <div className="flex items-center gap-4">
                                 <span className="title-primary">{selectedCar.model}</span>
@@ -67,13 +70,24 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                                 </div>
                             </div>
 
-                            <button onClick={() => closeModal()} className="button button-secondary">
+                            <button
+                                onClick={() => closeModal()}
+                                className="text-secondary flex md:hidden justify-center items-center cursor-pointer hover:text-charcoal transition-colors duration-300"
+                            >
+                                <X className="w-4 h-4" />
+                            </button>
+
+                            <button onClick={() => closeModal()} className="button button-secondary hidden md:flex">
                                 Close
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-[6fr_4fr] gap-8 items-start">
+                        <div className="grid grid-cols-1 md:grid-cols-[6fr_4fr] gap-6 md:gap-8 items-start">
                             <div className="flex flex-col gap-4 min-w-0">
+                                <div className="text-secondary block md:hidden">
+                                    Posted by @{selectedCar.user.username}
+                                </div>
+
                                 <CarThumbnail
                                     imageURL={selectedCar.photos[activePhotoIndex]?.imageURL}
                                     alt={`${selectedCar.model}`}
@@ -101,16 +115,18 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                                     </div>
                                 )}
 
-                                <div className="text-secondary">Posted by @{selectedCar.user.username}</div>
+                                <div className="text-secondary hidden md:block">
+                                    Posted by @{selectedCar.user.username}
+                                </div>
                             </div>
 
-                            <div className="flex flex-col gap-2">
-                                <div className="title-secondary">Mods</div>
+                            <div className="flex flex-col gap-4">
+                                <div className="title-secondary hidden md:block">Mods</div>
 
                                 {selectedCar.mods.length === 0 ? (
                                     <div className="text-secondary">No mods listed yet</div>
                                 ) : (
-                                    <ul className="custom-scrollbar flex flex-col gap-1 max-h-75 pr-2 overflow-y-auto">
+                                    <ul className="custom-scrollbar flex flex-col gap-2 md:max-h-75 md:pr-2 md:overflow-y-auto">
                                         {selectedCar.mods.map((mod) => (
                                             <li key={mod.id}>
                                                 <div className="flex items-center gap-2 font-medium">

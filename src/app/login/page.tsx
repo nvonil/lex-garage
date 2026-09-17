@@ -35,7 +35,7 @@ export default function LoginPage() {
         <div className="flex flex-col items-center max-w-xs w-full mx-auto px-6 mt-16">
             <h1 className="title-primary mb-6">Log In</h1>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full" autoComplete="off">
                 <input
                     type="email"
                     value={email}

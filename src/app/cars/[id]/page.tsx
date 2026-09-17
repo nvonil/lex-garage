@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { prisma } from "@/lib/prisma";
@@ -9,6 +10,7 @@ import PhotoCreateButton from "@/components/cars/photos/PhotoCreateButton";
 import ModCreateButton from "@/components/cars/mods/ModCreateButton";
 import PhotoGallery from "@/components/cars/photos/PhotoGallery";
 import ModListItem from "@/components/cars/mods/ModListItem";
+import { ChevronLeft } from "lucide-react";
 
 export default async function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -27,6 +29,14 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 
     return (
         <main className="flex flex-col gap-12 max-w-6xl w-full mx-auto px-6 py-12">
+            <Link
+                href="/my-builds"
+                className="text-secondary inline-flex items-center self-start gap-2 -mb-6 hover:text-charcoal transition-colors duration-300"
+            >
+                <ChevronLeft className="w-4 h-4" />
+                Back to My Builds
+            </Link>
+
             <div className="flex justify-between items-center">
                 <div className="flex items-center gap-4">
                     <span className="title-primary">{car.model}</span>

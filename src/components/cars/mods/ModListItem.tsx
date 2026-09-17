@@ -76,7 +76,7 @@ export default function ModListItem({ mod, isOwner }: { mod: ModWithStringCost; 
     if (isEditing) {
         return (
             <li className="p-4 border border-charcoal rounded-lg">
-                <form onSubmit={handleSave} className="flex flex-col gap-3">
+                <form onSubmit={handleSave} className="flex flex-col gap-3" autoComplete="off">
                     <input value={category} onChange={(e) => setCategory(e.target.value)} className="input" required />
 
                     <input value={brand} onChange={(e) => setBrand(e.target.value)} className="input" required />

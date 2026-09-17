@@ -75,7 +75,7 @@ export default function ModCreateButton({ carID }: { carID: string }) {
                         onClick={(e) => e.stopPropagation()}
                         className="max-w-sm w-full mx-auto p-6 rounded-lg bg-pearl"
                     >
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                        <form onSubmit={handleSubmit} className="flex flex-col gap-6" autoComplete="off">
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="category" className="font-semibold">
                                     Category
