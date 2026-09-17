@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import type { User } from "@/generated/prisma/client";
 
 import LogoutButton from "@/components/layout/LogoutButton";
-import { User as UserIcon } from "lucide-react";
+import { CarFront, User as UserIcon } from "lucide-react";
 
 export default function Nav({ user }: { user: User | null }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +28,13 @@ export default function Nav({ user }: { user: User | null }) {
             </Link>
 
             <nav className="flex items-center gap-4 sm:gap-8 md:gap-12">
-                <Link href="/my-builds">My Builds</Link>
+                <Link href="/my-builds" className="button button-primary flex sm:hidden p-2 sm:px-4 sm:py-2">
+                    <CarFront className="w-4 h-4" />
+                </Link>
+
+                <Link href="/my-builds" className="hidden sm:inline">
+                    My Builds
+                </Link>
 
                 {user ? (
                     <div className="relative">
