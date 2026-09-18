@@ -50,7 +50,7 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                         <CarThumbnail imageURL={car.photos[0]?.imageURL} alt={`${car.model}`} />
 
                         <div className="flex items-center gap-4">
-                            <span className="title-secondary">{car.model}</span>
+                            <span className="title-secondary truncate">{car.model}</span>
 
                             <div className="flex gap-2">
                                 <span className="badge">{car.year}</span>
@@ -70,9 +70,9 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                         onClick={(e) => e.stopPropagation()}
                         className="max-w-4xl w-full max-h-[75vh] mx-6 p-6 rounded-lg bg-pearl overflow-y-auto"
                     >
-                        <div className="flex justify-between items-center mb-4">
-                            <div className="flex items-center gap-4">
-                                <span className="title-primary">{selectedCar.model}</span>
+                        <div className="flex justify-between items-center gap-4 mb-4">
+                            <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+                                <span className="title-primary truncate">{selectedCar.model}</span>
 
                                 <div className="flex gap-2">
                                     <span className="badge">{selectedCar.year}</span>

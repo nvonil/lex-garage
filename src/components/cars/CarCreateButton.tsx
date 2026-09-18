@@ -75,6 +75,7 @@ export default function CarCreateButton() {
                                     value={model}
                                     onChange={(e) => setModel(e.target.value)}
                                     className="input"
+                                    maxLength={50}
                                     autoFocus
                                 />
                             </div>
@@ -108,6 +109,7 @@ export default function CarCreateButton() {
                                     value={color}
                                     onChange={(e) => setColor(e.target.value)}
                                     className="input"
+                                    maxLength={30}
                                 />
                             </div>
 

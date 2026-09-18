@@ -40,7 +40,7 @@
     }
 
     .badge {
-        @apply px-2 py-1 border border-slate rounded-xl text-sm text-slate;
+        @apply max-w-16 px-2 py-1 border border-slate rounded-xl text-sm text-slate truncate;
     }
 
     .card-interactive {

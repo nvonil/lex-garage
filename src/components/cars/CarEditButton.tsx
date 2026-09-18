@@ -60,10 +60,7 @@ export default function CarEditButton({ car }: { car: Car }) {
 
             {isOpen && (
                 <div onClick={closeModal} className={`modal-backdrop ${isVisible ? "opacity-100" : "opacity-0"}`}>
-                    <div
-                        onClick={(e) => e.stopPropagation()}
-                        className="max-w-sm w-full mx-auto p-6 rounded-lg bg-pearl"
-                    >
+                    <div onClick={(e) => e.stopPropagation()} className="max-w-sm w-full mx-6 p-6 rounded-lg bg-pearl">
                         <form onSubmit={handleSubmit} className="flex flex-col gap-6" autoComplete="off">
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="model" className="font-semibold">

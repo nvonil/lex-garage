@@ -36,7 +36,7 @@ export default async function MyBuilds() {
                             <CarThumbnail imageURL={car.photos[0]?.imageURL} alt={`${car.model}`} />
 
                             <div className="flex items-center gap-4">
-                                <span className="title-secondary">{car.model}</span>
+                                <span className="title-secondary truncate">{car.model}</span>
 
                                 <div className="flex gap-2">
                                     <span className="badge">{car.year}</span>

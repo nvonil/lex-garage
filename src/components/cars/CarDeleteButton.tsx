@@ -21,7 +21,7 @@ export default function CarDeleteButton({ carID }: { carID: string }) {
             return;
         }
 
-        router.push("/");
+        router.push("/my-builds");
         router.refresh();
     }
 
