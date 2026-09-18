@@ -53,9 +53,9 @@ export default function CarEditButton({ car }: { car: Car }) {
 
     return (
         <>
-            <button onClick={openModal} className="button button-secondary">
+            <button onClick={openModal} className="button button-secondary p-2 sm:px-4 sm:py-2">
                 <Pencil className="w-4 h-4" />
-                Edit
+                <span className="hidden sm:inline">Edit</span>
             </button>
 
             {isOpen && (

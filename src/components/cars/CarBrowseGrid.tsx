@@ -6,7 +6,7 @@ import { useState } from "react";
 import type { User, Car, Mod, Photo } from "@/generated/prisma/client";
 
 import CarThumbnail from "@/components/cars/CarThumbnail";
-import { X, ExternalLink } from "lucide-react";
+import { X, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 
 type ModWithStringCost = Omit<Mod, "cost"> & { cost: string };
 
@@ -30,6 +30,16 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
     function closeModal() {
         setIsVisible(false);
         setTimeout(() => setSelectedCar(null), 300);
+    }
+
+    function goPrevPhoto() {
+        if (!selectedCar) return;
+        setActivePhotoIndex((prev) => (prev - 1 + selectedCar.photos.length) % selectedCar.photos.length);
+    }
+
+    function goNextPhoto() {
+        if (!selectedCar) return;
+        setActivePhotoIndex((prev) => (prev + 1) % selectedCar.photos.length);
     }
 
     return (
@@ -88,13 +98,33 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                                     Posted by @{selectedCar.user.username}
                                 </div>
 
-                                <CarThumbnail
-                                    imageURL={selectedCar.photos[activePhotoIndex]?.imageURL}
-                                    alt={`${selectedCar.model}`}
-                                />
+                                <div className="relative">
+                                    <CarThumbnail
+                                        imageURL={selectedCar.photos[activePhotoIndex]?.imageURL}
+                                        alt={`${selectedCar.model}`}
+                                    />
+
+                                    {selectedCar.photos.length > 1 && (
+                                        <>
+                                            <button
+                                                onClick={goPrevPhoto}
+                                                className="md:hidden absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-charcoal/70 text-pearl cursor-pointer"
+                                            >
+                                                <ChevronLeft className="w-4 h-4" />
+                                            </button>
+
+                                            <button
+                                                onClick={goNextPhoto}
+                                                className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-charcoal/70 text-pearl cursor-pointer"
+                                            >
+                                                <ChevronRight className="w-4 h-4" />
+                                            </button>
+                                        </>
+                                    )}
+                                </div>
 
                                 {selectedCar.photos.length > 1 && (
-                                    <div className="custom-scrollbar flex gap-2 pb-2 overflow-x-auto">
+                                    <div className="custom-scrollbar hidden md:flex gap-2 pb-2 overflow-x-auto">
                                         {selectedCar.photos.map((photo, index) => (
                                             <button
                                                 key={photo.id}
@@ -111,6 +141,20 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                                                     className="object-cover"
                                                 />
                                             </button>
+                                        ))}
+                                    </div>
+                                )}
+
+                                {selectedCar.photos.length > 1 && (
+                                    <div className="md:hidden flex justify-center gap-2">
+                                        {selectedCar.photos.map((_, index) => (
+                                            <button
+                                                key={index}
+                                                onClick={() => setActivePhotoIndex(index)}
+                                                className={`w-2 h-2 rounded-full cursor-pointer transition-colors duration-300 ${
+                                                    index === activePhotoIndex ? "bg-charcoal" : "bg-mist"
+                                                }`}
+                                            />
                                         ))}
                                     </div>
                                 )}

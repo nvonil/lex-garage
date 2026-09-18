@@ -28,10 +28,10 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
     const isOwner = user?.id === car.userID;
 
     return (
-        <main className="flex flex-col gap-12 max-w-6xl w-full mx-auto px-6 py-12">
+        <main className="flex flex-col gap-8 md:gap-12 max-w-6xl w-full mx-auto px-6 py-12">
             <Link
                 href="/my-builds"
-                className="text-secondary inline-flex items-center self-start gap-2 -mb-6 hover:text-charcoal transition-colors duration-300"
+                className="text-secondary inline-flex items-center self-start gap-2 -mb-2 md:-mb-6 hover:text-charcoal transition-colors duration-300"
             >
                 <ChevronLeft className="w-4 h-4" />
                 Back to My Builds
@@ -48,7 +48,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                 </div>
 
                 {isOwner && (
-                    <div className="flex gap-4">
+                    <div className="flex gap-2 sm:gap-4">
                         <CarEditButton
                             car={{
                                 id: car.id,
@@ -64,7 +64,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                 )}
             </div>
 
-            <div className="grid grid-cols-[6fr_4fr] gap-8 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-[6fr_4fr] gap-6 md:gap-8 items-start">
                 <div>
                     <div className="flex justify-between items-center mb-6">
                         <div className="title-secondary">Photos</div>
@@ -85,7 +85,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                     {car.mods.length === 0 ? (
                         <div className="text-secondary">No mods listed yet</div>
                     ) : (
-                        <ul className="custom-scrollbar flex flex-col gap-4 max-h-137.5 pr-2 overflow-y-auto">
+                        <ul className="custom-scrollbar flex flex-col gap-4 md:max-h-137.5 md:pr-2 md:overflow-y-auto">
                             {car.mods.map((mod) => (
                                 <ModListItem
                                     key={mod.id}

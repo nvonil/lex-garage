@@ -64,17 +64,14 @@ export default function ModCreateButton({ carID }: { carID: string }) {
 
     return (
         <>
-            <button onClick={openModal} className="button button-primary">
+            <button onClick={openModal} className="button button-primary p-2 sm:px-4 sm:py-2">
                 <Plus className="w-4 h-4" />
-                Add
+                <span className="hidden sm:inline">Add</span>
             </button>
 
             {isOpen && (
                 <div onClick={closeModal} className={`modal-backdrop ${isVisible ? "opacity-100" : "opacity-0"}`}>
-                    <div
-                        onClick={(e) => e.stopPropagation()}
-                        className="max-w-sm w-full mx-auto p-6 rounded-lg bg-pearl"
-                    >
+                    <div onClick={(e) => e.stopPropagation()} className="max-w-sm w-full mx-6 p-6 rounded-lg bg-pearl">
                         <form onSubmit={handleSubmit} className="flex flex-col gap-6" autoComplete="off">
                             <div className="flex flex-col gap-2">
                                 <label htmlFor="category" className="font-semibold">

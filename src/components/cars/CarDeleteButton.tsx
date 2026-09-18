@@ -28,10 +28,10 @@ export default function CarDeleteButton({ carID }: { carID: string }) {
     return (
         <button
             onClick={handleDelete}
-            className="button button-secondary bg-pearl hover:border-[#e5383b] hover:text-[#e5383b]"
+            className="button button-secondary p-2 sm:px-4 sm:py-2 bg-pearl hover:border-[#e5383b] hover:text-[#e5383b]"
         >
             <Trash2 className="w-4 h-4" />
-            Delete
+            <span className="hidden sm:inline">Delete</span>
         </button>
     );
 }
