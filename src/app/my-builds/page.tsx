@@ -3,7 +3,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/session";
 
-import GuestPrompt from "@/components/auth/GuestPrompt";
+import GuestPrompt from "@/components/ui/GuestPrompt";
 import CarCreateButton from "@/components/cars/CarCreateButton";
 import CarThumbnail from "@/components/cars/CarThumbnail";
 

@@ -61,7 +61,7 @@ export default function SignupPage() {
                     className="input"
                 />
 
-                {error && <div className="text-sm text-[#e5383b] first-letter:capitalize text-center">{error}.</div>}
+                {error && <div className="text-sm text-danger first-letter:capitalize text-center">{error}.</div>}
 
                 <button type="submit" className="button button-primary justify-center mt-3 mb-6">
                     Sign Up

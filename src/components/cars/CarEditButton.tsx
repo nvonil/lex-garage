@@ -114,9 +114,7 @@ export default function CarEditButton({ car }: { car: Car }) {
                             </div>
 
                             {error && (
-                                <div className="text-sm text-[#e5383b] first-letter:capitalize text-center">
-                                    {error}.
-                                </div>
+                                <div className="text-sm text-danger first-letter:capitalize text-center">{error}.</div>
                             )}
 
                             <div className="flex gap-3 mt-2">

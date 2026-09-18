@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import type { Mod } from "@/generated/prisma/client";
 
+import DeleteConfirmModal from "@/components/ui/DeleteConfirmModal";
 import { ExternalLink, Pencil, Trash2 } from "lucide-react";
 
 type ModWithStringCost = Omit<Mod, "cost"> & { cost: string };
@@ -18,6 +19,7 @@ export default function ModListItem({ mod, isOwner }: { mod: ModWithStringCost; 
     const [cost, setCost] = useState(mod.cost.toString());
     const [url, setUrl] = useState(mod.url ?? "");
     const [error, setError] = useState("");
+    const [showConfirm, setShowConfirm] = useState(false);
 
     async function handleSave(e: React.FormEvent) {
         e.preventDefault();
@@ -46,12 +48,8 @@ export default function ModListItem({ mod, isOwner }: { mod: ModWithStringCost; 
         router.refresh();
     }
 
-    async function handleDelete() {
-        const confirmed = window.confirm("Delete this mod?");
-
-        if (!confirmed) {
-            return;
-        }
+    async function confirmDelete() {
+        setShowConfirm(false);
 
         const res = await fetch(`/api/mods/${mod.id}`, { method: "DELETE" });
 
@@ -100,9 +98,7 @@ export default function ModListItem({ mod, isOwner }: { mod: ModWithStringCost; 
                         placeholder="Link (optional)"
                     />
 
-                    {error && (
-                        <div className="text-sm text-[#e5383b] first-letter:capitalize text-center">{error}.</div>
-                    )}
+                    {error && <div className="text-sm text-danger first-letter:capitalize text-center">{error}.</div>}
 
                     <div className="flex gap-3 mt-1.5">
                         <button type="submit" className="button button-primary">
@@ -119,45 +115,54 @@ export default function ModListItem({ mod, isOwner }: { mod: ModWithStringCost; 
     }
 
     return (
-        <li className="flex flex-col gap-2 p-4 border border-charcoal rounded-lg">
-            <div className="flex justify-between items-center gap-4">
-                <div className="flex items-center gap-2 font-medium min-w-0">
-                    <span className="truncate" title={`${mod.category} — ${mod.brand} ${mod.name}`}>
-                        {mod.category} — {mod.brand} {mod.name}
-                    </span>
+        <>
+            <li className="flex flex-col gap-2 p-4 border border-charcoal rounded-lg">
+                <div className="flex justify-between items-center gap-4">
+                    <div className="flex items-center gap-2 font-medium min-w-0">
+                        <span className="truncate" title={`${mod.category} — ${mod.brand} ${mod.name}`}>
+                            {mod.category} — {mod.brand} {mod.name}
+                        </span>
 
-                    {mod.url && (
-                        <a
-                            href={mod.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-slate cursor-pointer hover:text-charcoal transition-colors duration-300"
-                        >
-                            <ExternalLink className="w-4 h-4" />
-                        </a>
+                        {mod.url && (
+                            <a
+                                href={mod.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-slate cursor-pointer hover:text-charcoal transition-colors duration-300"
+                            >
+                                <ExternalLink className="w-4 h-4" />
+                            </a>
+                        )}
+                    </div>
+
+                    {isOwner && (
+                        <div className="flex gap-2">
+                            <button
+                                onClick={() => setIsEditing(true)}
+                                className="text-slate cursor-pointer hover:text-charcoal transition-colors duration-300"
+                            >
+                                <Pencil className="w-4 h-4" />
+                            </button>
+
+                            <button
+                                onClick={() => setShowConfirm(true)}
+                                className="text-slate cursor-pointer hover:text-danger transition-colors duration-300"
+                            >
+                                <Trash2 className="w-4 h-4" />
+                            </button>
+                        </div>
                     )}
                 </div>
 
-                {isOwner && (
-                    <div className="flex gap-2">
-                        <button
-                            onClick={() => setIsEditing(true)}
-                            className="text-slate cursor-pointer hover:text-charcoal transition-colors duration-300"
-                        >
-                            <Pencil className="w-4 h-4" />
-                        </button>
+                <div className="text-secondary">${mod.cost.toString()}</div>
+            </li>
 
-                        <button
-                            onClick={handleDelete}
-                            className="text-slate cursor-pointer hover:text-[#e5383b] transition-colors duration-300"
-                        >
-                            <Trash2 className="w-4 h-4" />
-                        </button>
-                    </div>
-                )}
-            </div>
-
-            <div className="text-secondary">${mod.cost.toString()}</div>
-        </li>
+            <DeleteConfirmModal
+                isOpen={showConfirm}
+                itemName="Mod"
+                onConfirm={confirmDelete}
+                onCancel={() => setShowConfirm(false)}
+            />
+        </>
     );
 }
