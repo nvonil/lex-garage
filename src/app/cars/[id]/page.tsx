@@ -39,11 +39,15 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
 
             <div className="flex justify-between items-center gap-4">
                 <div className="flex items-center gap-2 sm:gap-4 min-w-0">
-                    <span className="title-primary truncate">{car.model}</span>
+                    <span className="title-primary truncate" title={car.model}>
+                        {car.model}
+                    </span>
 
                     <div className="flex gap-2">
                         <span className="badge">{car.year}</span>
-                        <span className="badge">{car.color}</span>
+                        <span className="badge" title={car.color}>
+                            {car.color}
+                        </span>
                     </div>
                 </div>
 
@@ -75,7 +79,7 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
                     <PhotoGallery photos={car.photos} isOwner={isOwner} />
                 </div>
 
-                <div>
+                <div className="min-w-0">
                     <div className="flex justify-between items-center mb-6">
                         <div className="title-secondary">Mods</div>
 

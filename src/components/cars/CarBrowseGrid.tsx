@@ -50,11 +50,15 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                         <CarThumbnail imageURL={car.photos[0]?.imageURL} alt={`${car.model}`} />
 
                         <div className="flex items-center gap-4">
-                            <span className="title-secondary truncate">{car.model}</span>
+                            <span className="title-secondary truncate" title={car.model}>
+                                {car.model}
+                            </span>
 
                             <div className="flex gap-2">
                                 <span className="badge">{car.year}</span>
-                                <span className="badge">{car.color}</span>
+                                <span className="badge" title={car.color}>
+                                    {car.color}
+                                </span>
                             </div>
                         </div>
                     </button>
@@ -72,11 +76,15 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                     >
                         <div className="flex justify-between items-center gap-4 mb-4">
                             <div className="flex items-center gap-2 sm:gap-4 min-w-0">
-                                <span className="title-primary truncate">{selectedCar.model}</span>
+                                <span className="title-primary truncate" title={selectedCar.model}>
+                                    {selectedCar.model}
+                                </span>
 
                                 <div className="flex gap-2">
                                     <span className="badge">{selectedCar.year}</span>
-                                    <span className="badge">{selectedCar.color}</span>
+                                    <span className="badge" title={selectedCar.color}>
+                                        {selectedCar.color}
+                                    </span>
                                 </div>
                             </div>
 
@@ -164,7 +172,7 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-4">
+                            <div className="flex flex-col gap-4 min-w-0">
                                 <div className="title-secondary hidden md:block">Mods</div>
 
                                 {selectedCar.mods.length === 0 ? (
@@ -174,7 +182,10 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                                         {selectedCar.mods.map((mod) => (
                                             <li key={mod.id}>
                                                 <div className="flex items-center gap-2 font-medium">
-                                                    <span>
+                                                    <span
+                                                        className="truncate"
+                                                        title={`${mod.category} — ${mod.brand} ${mod.name}`}
+                                                    >
                                                         {mod.category} — {mod.brand} {mod.name}
                                                     </span>
 

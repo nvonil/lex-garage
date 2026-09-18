@@ -85,6 +85,7 @@ export default function ModCreateButton({ carID }: { carID: string }) {
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value)}
                                     className="input"
+                                    maxLength={30}
                                     autoFocus
                                 />
                             </div>
@@ -101,6 +102,7 @@ export default function ModCreateButton({ carID }: { carID: string }) {
                                     value={brand}
                                     onChange={(e) => setBrand(e.target.value)}
                                     className="input"
+                                    maxLength={40}
                                 />
                             </div>
 
@@ -116,6 +118,7 @@ export default function ModCreateButton({ carID }: { carID: string }) {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     className="input"
+                                    max={60}
                                 />
                             </div>
 
@@ -127,6 +130,7 @@ export default function ModCreateButton({ carID }: { carID: string }) {
                                 <input
                                     id="cost"
                                     type="number"
+                                    step={0.01}
                                     min="0"
                                     value={cost}
                                     onChange={(e) => setCost(e.target.value)}
@@ -145,6 +149,7 @@ export default function ModCreateButton({ carID }: { carID: string }) {
                                     value={url}
                                     onChange={(e) => setUrl(e.target.value)}
                                     className="input"
+                                    maxLength={500}
                                 />
                             </div>
 

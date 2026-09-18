@@ -120,9 +120,9 @@ export default function ModListItem({ mod, isOwner }: { mod: ModWithStringCost; 
 
     return (
         <li className="flex flex-col gap-2 p-4 border border-charcoal rounded-lg">
-            <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2 font-medium">
-                    <span>
+            <div className="flex justify-between items-center gap-4">
+                <div className="flex items-center gap-2 font-medium min-w-0">
+                    <span className="truncate" title={`${mod.category} — ${mod.brand} ${mod.name}`}>
                         {mod.category} — {mod.brand} {mod.name}
                     </span>
 
