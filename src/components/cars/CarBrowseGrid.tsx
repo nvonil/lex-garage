@@ -178,7 +178,7 @@ export default function CarBrowseGrid({ cars }: { cars: CarWithDetails[] }) {
                                 {selectedCar.mods.length === 0 ? (
                                     <div className="text-secondary">No mods listed yet</div>
                                 ) : (
-                                    <ul className="custom-scrollbar flex flex-col gap-2 md:max-h-75 md:pr-2 md:overflow-y-auto">
+                                    <ul className="custom-scrollbar flex flex-col gap-2 md:mb-4 md:max-h-75 md:pr-2 md:overflow-y-auto">
                                         {selectedCar.mods.map((mod) => (
                                             <li key={mod.id}>
                                                 <div className="flex items-center gap-2 font-medium">

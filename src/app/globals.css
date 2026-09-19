@@ -46,7 +46,7 @@
     }
 
     .card-interactive {
-        @apply flex flex-col gap-4 p-4 border border-charcoal rounded-lg cursor-pointer hover:scale-102 transition-transform duration-300;
+        @apply flex flex-col gap-4 p-4 border border-slate rounded-lg cursor-pointer hover:scale-102 transition-transform duration-300;
     }
 
     .modal-backdrop {
