@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function SignupPage() {
     const router = useRouter();
@@ -32,17 +32,17 @@ export default function SignupPage() {
     }
 
     return (
-        <div className="max-w-sm mx-auto mt-16 px-4">
-            <h1 className="text-2xl font-bold mb-6">Sign Up</h1>
+        <div className="flex flex-col items-center max-w-xs w-full mx-auto px-6 mt-16">
+            <h1 className="title-primary mb-6">Sign Up</h1>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full" autoComplete="off">
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="border rounded px-3 py-2"
-                    required
+                    className="input"
+                    autoFocus
                 />
 
                 <input
@@ -50,8 +50,7 @@ export default function SignupPage() {
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="border rounded px-3 py-2"
-                    required
+                    className="input"
                 />
 
                 <input
@@ -59,23 +58,22 @@ export default function SignupPage() {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="border rounded px-3 py-2"
-                    required
+                    className="input"
                 />
 
-                {error && <p className="text-red-600 text-sm">{error}</p>}
+                {error && <div className="text-sm text-danger first-letter:capitalize text-center">{error}.</div>}
 
-                <button type="submit" className="bg-black text-white rounded px-3 py-2">
+                <button type="submit" className="button button-primary justify-center mt-3 mb-6">
                     Sign Up
                 </button>
             </form>
 
-            <p className="mt-4 text-sm">
+            <div className="text-secondary">
                 Already have an account?{" "}
-                <Link href="/login" className="underline">
+                <Link href="/login" className="text-charcoal underline">
                     Log in
                 </Link>
-            </p>
+            </div>
         </div>
     );
 }

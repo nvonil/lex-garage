@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+    --color-pearl: #f8f9fa;
+    --color-mist: #e9ecef;
+    --color-slate: #6c757d;
+    --color-charcoal: #212529;
+
+    --color-danger: #e5383b;
+
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@layer components {
+    .title-primary {
+        @apply text-xl text-charcoal font-bold;
+    }
+
+    .title-secondary {
+        @apply text-lg text-charcoal font-semibold;
+    }
+
+    .text-secondary {
+        @apply text-sm text-slate;
+    }
+
+    .button {
+        @apply flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer whitespace-nowrap;
+    }
+
+    .button-primary {
+        @apply border-none bg-charcoal text-pearl hover:scale-105 transition-transform duration-300;
+    }
+
+    .button-secondary {
+        @apply border border-charcoal bg-pearl text-charcoal hover:bg-mist transition-colors duration-300;
+    }
+
+    .input {
+        @apply px-4 py-2 border border-transparent rounded-lg bg-mist placeholder:text-slate focus:border-charcoal focus:outline-none transition-colors duration-300;
+    }
+
+    .badge {
+        @apply max-w-16 px-2 py-1 border border-slate rounded-xl text-sm text-slate truncate;
+    }
+
+    .card-interactive {
+        @apply flex flex-col gap-4 p-4 border border-slate rounded-lg cursor-pointer hover:scale-102 transition-transform duration-300;
+    }
+
+    .modal-backdrop {
+        @apply fixed inset-0 z-50 flex justify-center items-center bg-charcoal/70 transition-opacity duration-300;
+    }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes dropdown-in {
+    from {
+        transform: translateY(-0.5rem);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes progress-fill {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: var(--color-mist);
+    border-radius: 1rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-slate);
+    border-radius: 1rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--color-pearl);
+    color: var(--color-charcoal);
 }

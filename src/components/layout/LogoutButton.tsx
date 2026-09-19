@@ -12,7 +12,7 @@ export default function LogoutButton() {
     }
 
     return (
-        <button onClick={handleLogout} className="underline">
+        <button className="button button-primary" onClick={handleLogout}>
             Log Out
         </button>
     );
